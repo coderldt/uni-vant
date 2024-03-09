@@ -1,0 +1,6 @@
+{
+  "name": "uni-vant",
+  "scripts": {
+    "dev": "pnpm --dir ./packages/docs dev:h5"
+  }
+}

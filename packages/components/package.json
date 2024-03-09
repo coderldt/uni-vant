@@ -1,0 +1,6 @@
+{
+  "name": "uni-vant",
+  "devDependencies": {
+    "vue": "^3.4.21"
+  }
+}
