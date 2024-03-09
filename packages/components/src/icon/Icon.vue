@@ -36,21 +36,14 @@ import {
   extend,
   addUnit,
   getSizeStyle,
-  createNamespace, numericProp, makeStringProp,
+  createNamespace,
 } from '../utils';
 
-import { loadingProps, LoadingType } from '.'
+import { iconProps } from '.'
 
 const [name, bem] = createNamespace('loading');
 
-const props = defineProps({
-  size: numericProp,
-  type: makeStringProp<LoadingType>('circular'),
-  color: String,
-  vertical: Boolean,
-  textSize: numericProp,
-  textColor: String,
-})
+const props = defineProps(iconProps)
 
 const getStyle = computed(() => extend({ color: props.color }, getSizeStyle(props.size)))
 </script>

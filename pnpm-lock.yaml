@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      '@vant/use':
+        specifier: workspace:^
+        version: link:packages/vant-use
 
   packages/components:
     devDependencies:

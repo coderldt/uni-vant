@@ -4,7 +4,6 @@ import { withInstall,   extend,
   makeStringProp,
   createNamespace,
   BORDER_SURROUND, } from '../utils';
-import _Button from './Button.vue';
 import {
   ButtonSize,
   ButtonType,
@@ -19,8 +18,12 @@ import {
   type ExtractPropTypes,
 } from 'vue';
 import { Loading, LoadingType } from '../loading';
-export const Button = withInstall(_Button);
+
+import Button from './Button.vue';
+
 export default Button;
+
+// export const Button = withInstall(_Button);
 export const buttonProps = extend({}, {
   tag: makeStringProp<keyof HTMLElementTagNameMap>('button'),
   text: String,
