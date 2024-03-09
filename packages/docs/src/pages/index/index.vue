@@ -3,14 +3,15 @@
     <image class="logo" src="/static/logo.png" />
     <view class="text-area">
       <text class="title">{{ title }}</text>
-      <Button>test</Button>
+      <Button type="primary" loading-text="加载中..." loading-type="spinner" >123</Button>
+      <Button type="primary" loading ></Button>
     </view>
   </view>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Button from '../../../../components/src/button/Button.vue'
+import Button from '../../../../components/src/button'
 const title = ref('Hello')
 </script>
 

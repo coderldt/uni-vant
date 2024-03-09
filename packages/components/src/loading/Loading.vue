@@ -1,13 +1,13 @@
 <template>
-  <div
-    :class='bem(type, { vertical })'
+  <view
+    :class='bem([type, { vertical }])'
     aria-live='polite'
     aria-busy
   >
-    <span :class='bem("spinner", type)' :style='getStyle' >
+    <text :class='bem("spinner", type)' :style='getStyle' >
       <slot name="icon">
         <template v-if='type === "spinner"'>
-          <i v-for='item in 12' :key='item' :class='bem("line", String(item + 1))' />
+          <text v-for='item in 12' :key='item' :class='bem("line", String(item + 1))' />
         </template>
         <template v-else>
           <svg :class='bem("circular")' viewBox='25 25 50 50'>
@@ -15,8 +15,9 @@
           </svg>
         </template>
       </slot>
-    </span>
-    <span
+    </text>
+    <text
+      v-if="slots.default"
       :class='bem("text")'
       :style='{
         fontSize: addUnit(textSize),
@@ -24,8 +25,8 @@
       }'
     >
       <slot></slot>
-    </span>
-  </div>
+    </text>
+  </view>
 </template>
 
 <script lang="ts" setup>
@@ -51,6 +52,7 @@ const props = defineProps({
   textSize: numericProp,
   textColor: String,
 })
+const slots = useSlots()
 
 const getStyle = computed(() => extend({ color: props.color }, getSizeStyle(props.size)))
 </script>
