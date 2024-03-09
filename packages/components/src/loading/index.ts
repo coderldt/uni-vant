@@ -1,19 +1,15 @@
-import { withInstall } from '../utils';
-import _Loading from './Loading.vue';
+import { type ExtractPropTypes } from 'vue'
 import {
-  extend,
-  addUnit,
-  numericProp,
-  getSizeStyle,
   makeStringProp,
-  createNamespace,
-} from '../utils';
-import { computed, defineComponent, type ExtractPropTypes } from 'vue';
+  numericProp,
+  withInstall,
+} from '../utils'
+import _Loading from './Loading.vue'
 
-export const Loading = withInstall(_Loading);
-export default Loading;
-export type { LoadingThemeVars } from './types';
-export type LoadingType = 'circular' | 'spinner';
+export const Loading = withInstall(_Loading)
+export default Loading
+export type { LoadingThemeVars } from './types'
+export type LoadingType = 'circular' | 'spinner'
 
 export const loadingProps = {
   size: numericProp,
@@ -22,12 +18,11 @@ export const loadingProps = {
   vertical: Boolean,
   textSize: numericProp,
   textColor: String,
-};
-export type LoadingProps = ExtractPropTypes<typeof loadingProps>;
-
+}
+export type LoadingProps = ExtractPropTypes<typeof loadingProps>
 
 declare module 'vue' {
   export interface GlobalComponents {
-    VanLoading: typeof Loading;
+    VanLoading: typeof Loading
   }
 }

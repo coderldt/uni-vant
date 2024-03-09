@@ -1,19 +1,21 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import Button from '../../../../components/src/button'
+
+const title = ref('Hello')
+</script>
+
 <template>
   <view class="content">
     <image class="logo" src="/static/logo.png" />
     <view class="text-area">
-      <text class="title">{{ title }}</text>
-      <Button type="primary" loading-text="加载中..." loading-type="spinner" >123</Button>
-      <Button type="primary" loading ></Button>
+      <Button type="primary" loading loading-text="加载中..." loading-type="spinner">
+        123
+      </Button>
+      <Button type="primary" />
     </view>
   </view>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-import Button from '../../../../components/src/button'
-const title = ref('Hello')
-</script>
 
 <style>
 .content {

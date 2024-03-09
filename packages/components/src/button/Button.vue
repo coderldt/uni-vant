@@ -1,73 +1,32 @@
-<template>
-  <view
-    :type="nativeType"
-    :class="classes"
-    :style="getStyle"
-    :disabled="disabled"
-    :onClick="onClick"
-  >
-    <view :class="bem('content')">
-      <template v-if="iconPosition === 'left'">
-        <Loading
-          v-if="loading"
-          :size="props.loadingSize"
-          :type="props.loadingType"
-          :class="bem('loading')"
-          />
-        <slot v-else-if="slots.icon"></slot>
-<!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" />-->
-      </template>
-      <text :class="bem('text')">
-        <template v-if="loading">{{ loadingText }}</template>
-        <template v-else-if="text">{{ text }}</template>
-        <slot v-else></slot>
-      </text>
-      <template v-if="iconPosition === 'right'">
-        <Loading
-          v-if="loading"
-          :size="props.loadingSize"
-          :type="props.loadingType"
-          :class="bem('loading')"
-          />
-        <slot v-else-if="slots.icon"></slot>
-<!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" />-->
-      </template>
-      </view>
-  </view>
-</template>
-
 <script lang="ts" setup>
-import './index.less';
+import './index.less'
 import {
-  defineComponent,
-  useSlots,
-  type PropType,
   type CSSProperties,
-  type ExtractPropTypes,
-} from 'vue';
+  type PropType,
+  useSlots,
+} from 'vue'
 
 // Utils
 import {
-  extend,
+  BORDER_SURROUND,
+  createNamespace,
+  makeStringProp,
   numericProp,
   preventDefault,
-  makeStringProp,
-  createNamespace,
-  BORDER_SURROUND,
-} from '../utils';
+} from '../utils'
 
 // Components
 // import { Icon } from '../icon';
-import { Loading, LoadingType } from '../loading';
+import type { LoadingType } from '../loading'
+import { Loading } from '../loading'
 
 // Types
-import {
+import type {
+  ButtonIconPosition,
+  ButtonNativeType,
   ButtonSize,
   ButtonType,
-  ButtonNativeType,
-  ButtonIconPosition,
-} from './types';
-import { buttonProps,  } from '.'
+} from './types'
 
 const props = defineProps({
   tag: makeStringProp<keyof HTMLElementTagNameMap>('button'),
@@ -92,72 +51,118 @@ const props = defineProps({
 })
 const emit = defineEmits(['click'])
 const slots = useSlots()
-const getStyle = () => {
-      const { color, plain } = props;
-      if (color) {
-        const style: CSSProperties = {
-          color: plain ? color : 'white',
-        };
+function getStyle() {
+  const { color, plain } = props
+  if (color) {
+    const style: CSSProperties = {
+      color: plain ? color : 'white',
+    }
 
-        if (!plain) {
-          // Use background instead of backgroundColor to make linear-gradient work
-          style.background = color;
-        }
+    if (!plain) {
+      // Use background instead of backgroundColor to make linear-gradient work
+      style.background = color
+    }
 
-        // hide border when color is linear-gradient
-        if (color.includes('gradient')) {
-          style.border = 0;
-        } else {
-          style.borderColor = color;
-        }
+    // hide border when color is linear-gradient
+    if (color.includes('gradient'))
+      style.border = 0
+    else
+      style.borderColor = color
 
-        return style;
-      }
-    };
+    return style
+  }
+}
 
-    const onClick = (event: MouseEvent) => {
-      if (props.loading) {
-        preventDefault(event);
-      } else if (!props.disabled) {
-        emit('click', event);
-      }
-    };
-const [name, bem] = createNamespace('button');
+function onClick(event: MouseEvent) {
+  if (props.loading)
+    preventDefault(event)
+  else if (!props.disabled)
+    emit('click', event)
+}
+const [name, bem] = createNamespace('button')
 
-const getClasses = () => {
+function getClasses() {
   const {
-        type,
-        size,
+    type,
+    size,
+    block,
+    round,
+    plain,
+    square,
+    loading,
+    disabled,
+    hairline,
+  } = props
+
+  const classes = [
+    bem([
+      type,
+      size,
+      {
+        plain,
         block,
         round,
-        plain,
         square,
         loading,
         disabled,
         hairline,
-      } = props;
+      },
+    ]),
+    { [BORDER_SURROUND]: hairline },
+  ]
 
-      const classes = [
-        bem([
-          type,
-          size,
-          {
-            plain,
-            block,
-            round,
-            square,
-            loading,
-            disabled,
-            hairline,
-          },
-        ]),
-        { [BORDER_SURROUND]: hairline },
-      ];
-
-      return classes
+  return classes
 }
 
 const classes = getClasses()
-
-
 </script>
+
+<template>
+  <view
+    :type="nativeType"
+    :class="classes"
+    :style="getStyle"
+    :disabled="disabled"
+    :on-click="onClick"
+  >
+    <view :class="bem('content')">
+      <template v-if="iconPosition === 'left'">
+        <Loading
+          v-if="loading"
+          :size="props.loadingSize"
+          :type="props.loadingType"
+          :class="bem('loading')"
+        />
+        <slot v-else-if="slots.icon" />
+        <!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" /> -->
+      </template>
+
+      <template v-if="loading && loadingText">
+        <text :class="bem('text')">
+          {{ loadingText }}
+        </text>
+      </template>
+      <template v-else-if="slots.default">
+        <text :class="bem('text')">
+          <slot />
+        </text>
+      </template>
+      <template v-else-if="text">
+        <text :class="bem('text')">
+          {{ text }}
+        </text>
+      </template>
+
+      <template v-if="iconPosition === 'right'">
+        <Loading
+          v-if="loading"
+          :size="props.loadingSize"
+          :type="props.loadingType"
+          :class="bem('loading')"
+        />
+        <slot v-else-if="slots.icon" />
+        <!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" /> -->
+      </template>
+    </view>
+  </view>
+</template>

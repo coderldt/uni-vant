@@ -1,27 +1,23 @@
-import { withInstall,   extend,
-  numericProp,
-  preventDefault,
-  makeStringProp,
-  createNamespace,
-  BORDER_SURROUND, } from '../utils';
 import {
+  type ExtractPropTypes,
+  type PropType,
+} from 'vue'
+import {
+  extend,
+  makeStringProp,
+  numericProp,
+} from '../utils'
+import type { LoadingType } from '../loading'
+import type {
+  ButtonIconPosition,
+  ButtonNativeType,
   ButtonSize,
   ButtonType,
-  ButtonNativeType,
-  ButtonIconPosition,
-} from './types';
-import {
-  defineComponent,
-  useSlots,
-  type PropType,
-  type CSSProperties,
-  type ExtractPropTypes,
-} from 'vue';
-import { Loading, LoadingType } from '../loading';
+} from './types'
 
-import Button from './Button.vue';
+import Button from './Button.vue'
 
-export default Button;
+export default Button
 
 // export const Button = withInstall(_Button);
 export const buttonProps = extend({}, {
@@ -44,13 +40,13 @@ export const buttonProps = extend({}, {
   loadingText: String,
   loadingType: String as PropType<LoadingType>,
   iconPosition: makeStringProp<ButtonIconPosition>('left'),
-});
+})
 
-export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
+export type ButtonProps = ExtractPropTypes<typeof buttonProps>
 export type {
   ButtonType,
   ButtonSize,
   ButtonThemeVars,
   ButtonNativeType,
   ButtonIconPosition,
-} from './types';
+} from './types'
