@@ -7,38 +7,37 @@
     :onClick="onClick"
   >
     <view :class="bem('content')">
-      <view :class="bem('content')">
-        <template v-if="iconPosition === 'left'">
-          <Loading
-            v-if="loading"
-            :size="props.loadingSize"
-            :type="props.loadingType"
-            :class="bem('loading')"
-            />
-          <slot v-else-if="slots.icon"></slot>
+      <template v-if="iconPosition === 'left'">
+        <Loading
+          v-if="loading"
+          :size="props.loadingSize"
+          :type="props.loadingType"
+          :class="bem('loading')"
+          />
+        <slot v-else-if="slots.icon"></slot>
 <!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" />-->
-        </template>
-        <text :class="bem('text')">
-          <template v-if="loading">{{ loadingText }}</template>
-          <template v-else-if="text">{{ text }}</template>
-          <slot v-else></slot>
-        </text>
-        <template v-if="iconPosition === 'right'">
-          <Loading
-            v-if="loading"
-            :size="props.loadingSize"
-            :type="props.loadingType"
-            :class="bem('loading')"
-            />
-          <slot v-else-if="slots.icon"></slot>
+      </template>
+      <text :class="bem('text')">
+        <template v-if="loading">{{ loadingText }}</template>
+        <template v-else-if="text">{{ text }}</template>
+        <slot v-else></slot>
+      </text>
+      <template v-if="iconPosition === 'right'">
+        <Loading
+          v-if="loading"
+          :size="props.loadingSize"
+          :type="props.loadingType"
+          :class="bem('loading')"
+          />
+        <slot v-else-if="slots.icon"></slot>
 <!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" />-->
-        </template>
+      </template>
       </view>
-    </view>
   </view>
 </template>
 
 <script lang="ts" setup>
+import './index.less';
 import {
   defineComponent,
   useSlots,
@@ -93,7 +92,6 @@ const props = defineProps({
 })
 const emit = defineEmits(['click'])
 const slots = useSlots()
-
 const getStyle = () => {
       const { color, plain } = props;
       if (color) {
@@ -163,7 +161,3 @@ const classes = getClasses()
 
 
 </script>
-
-<style lang="less">
-@import "./index.less";
-</style>
