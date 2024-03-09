@@ -2,5 +2,8 @@
   "name": "uni-vant",
   "scripts": {
     "dev": "pnpm --dir ./packages/docs dev:h5"
+  },
+  "dependencies": {
+    "@vant/use": "workspace:^"
   }
 }

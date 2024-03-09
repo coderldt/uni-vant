@@ -1,5 +1,5 @@
 import { withInstall } from '../utils';
-import _Loading from './Loading';
+import _Loading from './Loading.vue';
 import {
   extend,
   addUnit,

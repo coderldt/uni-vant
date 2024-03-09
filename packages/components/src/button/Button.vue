@@ -16,7 +16,7 @@
             :class="bem('loading')"
             />
           <slot v-else-if="slots.icon"></slot>
-          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" />
+<!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" />-->
         </template>
         <text :class="bem('text')">
           <template v-if="loading">{{ loadingText }}</template>
@@ -31,7 +31,7 @@
             :class="bem('loading')"
             />
           <slot v-else-if="slots.icon"></slot>
-          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" />
+<!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" />-->
         </template>
       </view>
     </view>
@@ -39,8 +39,6 @@
 </template>
 
 <script lang="ts" setup>
-import './index.less'
-
 import {
   defineComponent,
   useSlots,
@@ -60,7 +58,7 @@ import {
 } from '../utils';
 
 // Components
-import { Icon } from '../icon';
+// import { Icon } from '../icon';
 import { Loading, LoadingType } from '../loading';
 
 // Types
@@ -72,7 +70,27 @@ import {
 } from './types';
 import { buttonProps,  } from '.'
 
-const props = defineProps(buttonProps)
+const props = defineProps({
+  tag: makeStringProp<keyof HTMLElementTagNameMap>('button'),
+  text: String,
+  icon: String,
+  type: makeStringProp<ButtonType>('default'),
+  size: makeStringProp<ButtonSize>('normal'),
+  color: String,
+  block: Boolean,
+  plain: Boolean,
+  round: Boolean,
+  square: Boolean,
+  loading: Boolean,
+  hairline: Boolean,
+  disabled: Boolean,
+  iconPrefix: String,
+  nativeType: makeStringProp<ButtonNativeType>('button'),
+  loadingSize: numericProp,
+  loadingText: String,
+  loadingType: String as PropType<LoadingType>,
+  iconPosition: makeStringProp<ButtonIconPosition>('left'),
+})
 const emit = defineEmits(['click'])
 const slots = useSlots()
 
@@ -145,3 +163,7 @@ const classes = getClasses()
 
 
 </script>
+
+<style lang="less">
+@import "./index.less";
+</style>

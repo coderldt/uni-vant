@@ -1,5 +1,5 @@
 import { withInstall } from '../utils';
-import _Icon from './Icon';
+import _Icon from './Icon.vue';
 
 export const Icon = withInstall(_Icon);
 export default Icon;

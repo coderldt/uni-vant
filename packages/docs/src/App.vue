@@ -10,4 +10,6 @@ onHide(() => {
   console.log("App Hide");
 });
 </script>
-<style></style>
+<style lang="less">
+@import "../../components/src/style/base.less";
+</style>
