@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import './index.less'
 import { computed } from 'vue'
 import { useParent } from '@vant/use'
 import {

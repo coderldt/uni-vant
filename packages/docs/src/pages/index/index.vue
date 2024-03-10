@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { Button } from 'uni-vant'
+import { Button, Col, Overlay, Row } from 'uni-vant'
+import { ref } from 'vue'
+
+const show = ref(true)
 </script>
 
 <template>
@@ -13,5 +16,34 @@ import { Button } from 'uni-vant'
     <Button icon="plus" type="warning">
       按钮
     </Button>
+
+    <Row>
+      <Col span="8">
+        span: 8
+      </Col>
+      <Col span="8">
+        span: 8
+      </Col>
+      <Col span="8">
+        span: 8
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span="4">
+        span: 4
+      </Col>
+      <Col span="10" offset="4">
+        offset: 4, span: 10
+      </Col>
+    </Row>
+
+    <Row>
+      <Col offset="12" span="12">
+        offset: 12, span: 12
+      </Col>
+    </Row>
+
+    <Overlay :show="show" @click="show = false" />
   </view>
 </template>
