@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { Button } from 'uni-vant'
+import { ref } from 'vue'
+import { Button, Rate } from 'uni-vant'
+
+const rateVal = ref(3)
 </script>
 
 <template>
@@ -14,6 +17,7 @@ import { Button } from 'uni-vant'
       <Button icon="plus" type="primary">
         按钮
       </Button>
+      <Rate v-model="rateVal" count="5" icon="plus" void-icon="like-o" />
     </view>
   </view>
 </template>
