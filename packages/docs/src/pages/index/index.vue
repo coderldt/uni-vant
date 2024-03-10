@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import Button from '../../../../components/src/button'
-
-const title = ref('Hello')
+import { Button } from 'uni-vant'
 </script>
 
 <template>
   <view class="content">
-    <image class="logo" src="/static/logo.png" />
     <view class="text-area">
       <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
         123

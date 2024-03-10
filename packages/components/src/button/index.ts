@@ -15,11 +15,9 @@ import type {
   ButtonType,
 } from './types'
 
-import Button from './Button.vue'
+import _Button from './Button.vue'
 
-export default Button
-
-// export const Button = withInstall(_Button);
+export const Button = _Button
 export const buttonProps = extend({}, {
   tag: makeStringProp<keyof HTMLElementTagNameMap>('button'),
   text: String,

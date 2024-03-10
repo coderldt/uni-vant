@@ -4,7 +4,7 @@
     "dev": "pnpm --dir ./packages/docs dev:h5"
   },
   "dependencies": {
-    "@vant/use": "workspace:^"
+    "@vant/use": "workspace:*"
   },
   "devDependencies": {
     "@iihll/eslint-config": "^0.0.5",

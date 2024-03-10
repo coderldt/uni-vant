@@ -1,5 +1,6 @@
 {
   "name": "uni-vant",
+  "main": "src/index.ts",
   "devDependencies": {
     "vue": "^3.4.21",
     "@vant/icons": "workspace:*"
