@@ -1,6 +1,7 @@
 {
   "name": "uni-vant",
   "devDependencies": {
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "@vant/icons": "workspace:*"
   }
 }

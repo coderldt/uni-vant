@@ -1,0 +1,17 @@
+import type { WatchSource } from 'vue'
+import { ref, watch } from 'vue'
+
+export function useLazyRender(show: WatchSource<boolean | undefined>) {
+  const inited = ref(false)
+
+  watch(
+    show,
+    (value) => {
+      if (value)
+        inited.value = value
+    },
+    { immediate: true },
+  )
+
+  return (render: () => JSX.Element) => () => (inited.value ? render() : null)
+}

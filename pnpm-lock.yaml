@@ -21,6 +21,9 @@ importers:
 
   packages/components:
     devDependencies:
+      '@vant/icons':
+        specifier: workspace:*
+        version: link:../vant-icons
       vue:
         specifier: ^3.4.21
         version: 3.4.21(typescript@5.4.2)

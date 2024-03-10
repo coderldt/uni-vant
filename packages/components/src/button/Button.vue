@@ -16,7 +16,7 @@ import {
 } from '../utils'
 
 // Components
-// import { Icon } from '../icon';
+import { Icon } from '../icon'
 import type { LoadingType } from '../loading'
 import { Loading } from '../loading'
 
@@ -134,7 +134,7 @@ const classes = getClasses()
           :class="bem('loading')"
         />
         <slot v-else-if="slots.icon" />
-        <!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" /> -->
+        <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :class-prefix="iconPrefix" />
       </template>
 
       <template v-if="loading && loadingText">
@@ -161,7 +161,7 @@ const classes = getClasses()
           :class="bem('loading')"
         />
         <slot v-else-if="slots.icon" />
-        <!--          <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :classPrefix="iconPrefix" /> -->
+        <Icon v-else-if="icon" :name="icon" :class="bem('icon')" :class-prefix="iconPrefix" />
       </template>
     </view>
   </view>

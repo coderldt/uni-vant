@@ -9,10 +9,15 @@ const title = ref('Hello')
   <view class="content">
     <image class="logo" src="/static/logo.png" />
     <view class="text-area">
-      <Button type="primary" loading loading-text="加载中..." loading-type="spinner">
+      <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
         123
       </Button>
-      <Button type="primary" />
+      <Button type="primary">
+        test
+      </Button>
+      <Button icon="plus" type="primary">
+        按钮
+      </Button>
     </view>
   </view>
 </template>

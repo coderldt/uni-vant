@@ -1,49 +1,63 @@
-<template>
-  <div
-    :class='bem(type, { vertical })'
-    aria-live='polite'
-    aria-busy
-  >
-    <span :class='bem("spinner", type)' :style='getStyle' >
-      <slot name="icon">
-        <template v-if='type === "spinner"'>
-          <i v-for='item in 12' :key='item' :class='bem("line", String(item + 1))' />
-        </template>
-        <template v-else>
-          <svg :class='bem("circular")' viewBox='25 25 50 50'>
-            <circle cx='50' cy='50' r='20' fill='none' />
-          </svg>
-        </template>
-      </slot>
-    </span>
-    <span
-      :class='bem("text")'
-      :style='{
-        fontSize: addUnit(textSize),
-        color: textColor ?? color
-      }'
-    >
-      <slot></slot>
-    </span>
-  </div>
-</template>
-
 <script lang="ts" setup>
+import '@vant/icons/src/encode-woff2.less'
 import './index.less'
-
-import {computed, useSlots} from 'vue';
 import {
-  extend,
+  type PropType,
+  computed,
+  inject,
+} from 'vue'
+import {
   addUnit,
-  getSizeStyle,
   createNamespace,
-} from '../utils';
+  makeStringProp,
+  numericProp,
+} from '../utils'
+import { Badge } from '../badge'
 
-import { iconProps } from '.'
+import { CONFIG_PROVIDER_KEY } from '../config-provider'
 
-const [name, bem] = createNamespace('loading');
+const props = defineProps({
+  dot: Boolean,
+  tag: makeStringProp<keyof HTMLElementTagNameMap>('i'),
+  name: String,
+  size: numericProp,
+  badge: numericProp,
+  color: String,
+  // TODO badgeProps
+  badgeProps: Object as PropType<Partial<any>>,
+  classPrefix: String,
+})
 
-const props = defineProps(iconProps)
+const [name, bem] = createNamespace('icon')
 
-const getStyle = computed(() => extend({ color: props.color }, getSizeStyle(props.size)))
+const isImage = (name?: string) => name?.includes('/')
+
+const config = inject(CONFIG_PROVIDER_KEY, null)
+
+const classPrefix = computed(
+  () => props.classPrefix || config?.iconPrefix || bem(),
+)
+const isImageIcon = isImage(props.name)
 </script>
+
+<template>
+  <Badge
+    :dot="dot"
+    :tag="tag"
+    :class="[
+      classPrefix,
+      isImageIcon ? '' : `${classPrefix}-${props.name}`,
+    ]"
+    :style="{
+      color,
+      fontSize: addUnit(size),
+    }"
+    :content="badge"
+    v-bind="badgeProps"
+  >
+    <slot />
+    <template v-if="isImageIcon">
+      <image :class="bem('image')" :src="name" />
+    </template>
+  </Badge>
+</template>
