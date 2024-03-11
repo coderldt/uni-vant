@@ -1,51 +1,53 @@
 <script setup lang="ts">
+import { Button, Col, Overlay, Rate, Row } from 'uni-vant'
 import { ref } from 'vue'
-import { Button, Rate } from 'uni-vant'
+
+const show = ref(true)
 
 const rateVal = ref(3)
 </script>
 
 <template>
   <view class="content">
-    <view class="text-area">
-      <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
-        123
-      </Button>
-      <Button type="primary">
-        test
-      </Button>
-      <Button icon="plus" type="primary">
-        按钮
-      </Button>
-      <Rate v-model="rateVal" count="5" icon="plus" void-icon="like-o" />
-    </view>
+    <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
+      123
+    </Button>
+    <Button type="primary">
+      test
+    </Button>
+    <Button icon="plus" type="warning">
+      按钮
+    </Button>
+
+    <Row>
+      <Col span="8">
+        span: 8
+      </Col>
+      <Col span="8">
+        span: 8
+      </Col>
+      <Col span="8">
+        span: 8
+      </Col>
+    </Row>
+
+    <Row>
+      <Col span="4">
+        span: 4
+      </Col>
+      <Col span="10" offset="4">
+        offset: 4, span: 10
+      </Col>
+    </Row>
+
+    <Row>
+      <Col offset="12" span="12">
+        offset: 12, span: 12
+      </Col>
+    </Row>
+
+    <Overlay :show="show" @click="show = false" />
+
+    <Rate v-model="rateVal" />
   </view>
 </template>
-
-<style>
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo {
-  height: 200rpx;
-  width: 200rpx;
-  margin-top: 200rpx;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50rpx;
-}
-
-.text-area {
-  display: flex;
-  justify-content: center;
-}
-
-.title {
-  font-size: 36rpx;
-  color: #8f8f94;
-}
-</style>
