@@ -42,7 +42,7 @@ const emit = defineEmits<{
   (event: 'change', value: number)
 }>()
 
-const [name, bem] = createNamespace('loading')
+const [name, bem] = createNamespace('rate')
 const touch = useTouch()
 
 const [itemRefs, setItemRefs] = useRefs()
