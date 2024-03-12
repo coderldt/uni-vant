@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { Button, Col, Overlay, Row } from 'uni-vant'
+import { Button, Col, Overlay, Rate, Row } from 'uni-vant'
 import { ref } from 'vue'
 
 const show = ref(true)
+
+const rateVal = ref(3)
 </script>
 
 <template>
@@ -45,5 +47,7 @@ const show = ref(true)
     </Row>
 
     <Overlay :show="show" @click="show = false" />
+
+    <Rate v-model="rateVal" />
   </view>
 </template>

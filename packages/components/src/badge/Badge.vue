@@ -98,20 +98,19 @@ const style = computed(() => {
       <slot />
 
       <view
+        v-if="hasContent() || props.dot"
         :class="bem([
           props.position,
           { dot: props.dot, fixed: !!slots.default },
         ])"
         :style="style"
       >
-        <template v-if="!dot && hasContent()">
-          <slot v-if="slots.content" />
-          <template v-else-if="isDef(max) && isNumeric(content!) && +content > +max">
-            {{ `${max}+` }}
-          </template>
-          <template v-else>
-            {{ content }}
-          </template>
+        <slot v-if="slots.content" />
+        <template v-else-if="isDef(max) && isNumeric(content!) && +content > +max">
+          {{ `${max}+` }}
+        </template>
+        <template v-else>
+          {{ content }}
         </template>
       </view>
     </view>
@@ -124,7 +123,7 @@ const style = computed(() => {
     ])"
     :style="style"
   >
-    <template v-if="!dot && hasContent()">
+    <template v-if="hasContent() || props.dot">
       <slot v-if="slots.content" />
       <template v-else-if="isDef(max) && isNumeric(content!) && +content > +max">
         {{ `${max}+` }}
