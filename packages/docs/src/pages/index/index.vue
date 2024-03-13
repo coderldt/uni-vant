@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Col, Overlay, Rate, Row } from 'uni-vant'
+import { Button, Col, Overlay, Rate, Row, Space } from 'uni-vant'
 import { ref } from 'vue'
 
 const show = ref(true)
@@ -9,15 +9,17 @@ const rateVal = ref(3)
 
 <template>
   <view class="content">
-    <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
-      123
-    </Button>
-    <Button type="primary">
-      test
-    </Button>
-    <Button icon="plus" type="warning">
-      按钮
-    </Button>
+    <Space>
+      <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
+        123
+      </Button>
+      <Button type="primary">
+        test
+      </Button>
+      <Button icon="plus" type="warning">
+        按钮
+      </Button>
+    </Space>
 
     <Row>
       <Col span="8">
