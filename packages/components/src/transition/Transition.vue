@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, watch } from 'vue'
+import { computed, nextTick, reactive, ref, watch } from 'vue'
 import { createAnimation } from './createAnimation'
 
 const props = defineProps({
@@ -34,7 +34,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['click', 'change'])
 const ani = ref()
-const data = reative({
+const data = reactive({
   isShow: false,
   transform: '',
   opacity: 1,
@@ -120,20 +120,20 @@ function open() {
 
   data.transform = transform
   // 确保动态样式已经生效后，执行动画，如果不加 nextTick ，会导致 wx 动画执行异常
-  data.$nextTick(() => {
+  nextTick(() => {
     // TODO 定时器保证动画完全执行，目前有些问题，后面会取消定时器
     data.timer = setTimeout(() => {
       data.animation = createAnimation(data.config, data)
       data.tranfromInit(false).step()
       data.animation.run()
-      data.$emit('change', {
+      emit('change', {
         detail: data.isShow,
       })
     }, 20)
   })
 }
 // 关闭过度动画
-function close(type) {
+function close() {
   if (!data.animation)
     return
   tranfromInit(true)
@@ -229,7 +229,7 @@ function animationMode() {
   }
 }
 // 驼峰转中横线
-function toLine(name) {
+function toLine(name: string) {
   return name.replace(/([A-Z])/g, '-$1').toLowerCase()
 }
 
@@ -244,7 +244,7 @@ data.durationTime = data.duration
 </script>
 
 <template>
-  <view v-show="isShow" ref="ani" :animation="animationData" :class="customClass" :style="transformStyles" @click="onClick">
+  <view v-show="data.isShow" ref="ani" :animation="data.animationData" :class="customClass" :style="transformStyles" @click="onClick">
     <slot />
   </view>
 </template>

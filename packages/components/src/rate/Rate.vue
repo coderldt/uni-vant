@@ -38,8 +38,8 @@ const props = defineProps({
   disabledColor: String,
 })
 const emit = defineEmits<{
-  (event: 'update:modelValue', value: number)
-  (event: 'change', value: number)
+  (event: 'update:modelValue', value: number): void
+  (event: 'change', value: number): void
 }>()
 
 const [name, bem] = createNamespace('rate')
@@ -182,7 +182,7 @@ useEventListener('touchmove', onTouchMove, {
 
 <template>
   <div
-    :ref="groupRef"
+    ref="groupRef"
     role="radiogroup"
     :class="bem({
       readonly,

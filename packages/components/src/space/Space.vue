@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import './index.less'
-import { Comment, Fragment, Text, computed, useSlots, h } from 'vue'
+import { Comment, Fragment, Text, computed, h, useSlots } from 'vue'
 import type { CSSProperties, PropType, VNode } from 'vue'
 
 import { createNamespace } from '../utils'
@@ -75,11 +75,11 @@ const getDefaultSlot = computed(() => {
   return data
 })
 
-const renderDefaultSlot = () => {
+function renderDefaultSlot() {
   const slotContents = getDefaultSlot.value.map((slotVNode, i) => {
     // 这里可以处理每个插槽 VNode，例如给它们包裹一个额外的 div
-    return h('view', { key: `item-${i}`, class: `${name}-item` }, slotVNode);
-  });
+    return h('view', { key: `item-${i}`, class: `${name}-item` }, slotVNode)
+  })
   return h('view', [slotContents])
 }
 </script>
@@ -99,9 +99,9 @@ const renderDefaultSlot = () => {
       :class="`${name}-item`"
       :style="getMarginStyle(index === getDefaultSlot.length - 1)"
     >
-      123
-<!--      {{ item.type.setup() }}-->
-<!--      {{ renderDefaultSlot() }}-->
+      <component :is="item" />
+      <!--      {{ item.type.setup() }} -->
+      <!--      {{ renderDefaultSlot() }} -->
     </view>
   </view>
 </template>

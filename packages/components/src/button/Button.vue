@@ -123,7 +123,7 @@ const classes = getClasses()
     :class="classes"
     :style="getStyle"
     :disabled="disabled"
-    :on-click="onClick"
+    @click="onClick"
   >
     <view :class="bem('content')">
       <template v-if="iconPosition === 'left'">

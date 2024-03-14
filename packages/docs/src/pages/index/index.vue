@@ -3,8 +3,12 @@ import { Button, Col, Overlay, Rate, Row, Space } from 'uni-vant'
 import { ref } from 'vue'
 
 const show = ref(true)
-
+const disabled = ref(false)
 const rateVal = ref(3)
+function onClick() {
+  disabled.value = !disabled.value
+  console.log('disabled', disabled)
+}
 </script>
 
 <template>
@@ -20,6 +24,18 @@ const rateVal = ref(3)
         按钮
       </Button>
     </Space>
+    <button @click="onClick">
+      test
+    </button>
+    <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
+      123
+    </Button>
+    <Button type="primary" @click="onClick">
+      test
+    </Button>
+    <Button icon="plus" type="warning">
+      按钮
+    </Button>
 
     <Row>
       <Col span="8">
@@ -50,6 +66,6 @@ const rateVal = ref(3)
 
     <Overlay :show="show" @click="show = false" />
 
-    <Rate v-model="rateVal" />
+    <Rate v-model="rateVal" :disabled="disabled" />
   </view>
 </template>
