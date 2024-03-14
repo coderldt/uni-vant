@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Col, Overlay, Rate, Row, Space } from 'uni-vant'
+import { Badge, Button, Col, Overlay, Rate, Row, Space } from 'uni-vant'
 import { ref } from 'vue'
 
 const show = ref(true)
@@ -67,5 +67,22 @@ function onClick() {
     <Overlay :show="show" @click="show = false" />
 
     <Rate v-model="rateVal" :disabled="disabled" />
+
+    <Badge :content="5">
+      <div class="child" />
+    </Badge>
+    <Badge :content="50" max="20">
+      <div class="child" />
+    </Badge>
   </view>
 </template>
+
+<style>
+  .child {
+    width: 40px;
+    height: 40px;
+    background: #f2f3f5;
+    border-radius: 4px;
+    margin-left: 30px;
+  }
+</style>
