@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button, Col, Overlay, Rate, Row, Space } from 'uni-vant'
+import { Badge, Button, Col, Overlay, Rate, Row, Space, Circle } from 'uni-vant'
 import { ref } from 'vue'
 
 const show = ref(true)
@@ -9,6 +9,10 @@ function onClick() {
   disabled.value = !disabled.value
   console.log('disabled', disabled)
 }
+
+const currentRate = ref(20)
+const text = ref('测试文本')
+
 </script>
 
 <template>
@@ -67,5 +71,55 @@ function onClick() {
     <Overlay :show="show" @click="show = false" />
 
     <Rate v-model="rateVal" :disabled="disabled" />
+
+    <Badge :content="5">
+      <div class="child" />
+    </Badge>
+    <Badge :content="50" max="20">
+      <div class="child" />
+    </Badge>
+
+    <div class="box">
+      <h2>circle</h2>
+      <Space>
+        <Circle
+          v-model:current-rate="currentRate"
+          :rate="30"
+          :speed="100"
+          :text="text"
+        />
+        <Circle
+          v-model:current-rate="currentRate"
+          :rate="60"
+          :stroke-width="60"
+          text="宽度定制"
+        />
+        <Circle
+          v-model:current-rate="currentRate"
+          :rate="100"
+          layer-color="#ebedf0"
+          text="颜色定制"
+        />
+      </Space>
+    </div>
   </view>
 </template>
+
+<style lang="less">
+  .child {
+    width: 40px;
+    height: 40px;
+    background: #f2f3f5;
+    border-radius: 4px;
+    margin-left: 30px;
+  }
+
+  .box {
+    padding: 20px;
+    background: #eaeaea;
+    border-radius: 10px;
+    h2 {
+      margin: 20px 0;
+    }
+  }
+</style>
