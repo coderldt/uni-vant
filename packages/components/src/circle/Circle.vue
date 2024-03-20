@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type CSSProperties, computed, useSlots, watch } from 'vue'
 import { cancelRaf, raf } from '@vant/use'
+import './index.less'
 import {
   createNamespace,
   getSizeStyle,
