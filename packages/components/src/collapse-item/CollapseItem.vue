@@ -1,6 +1,5 @@
 <template>
-  <view :class="[bem({ border: index && border })]"
-  >
+  <view :class="[bem({ border: index && border })]">
     <Cell
       v-slot="cellSlots"
       role="button"
@@ -25,6 +24,7 @@
 </template>
 <script setup lang="ts">
 import './index.less'
+import { raf, doubleRaf, useParent } from '@vant/use';
 import {
   ref,
   watch,
@@ -32,20 +32,16 @@ import {
   nextTick,
   useSlots,
 } from 'vue';
-// Utils
-import { cellSharedProps } from '../cell';
+
+import { cellSharedProps, Cell } from '../cell';
 import {
   pick,
   createNamespace,
 } from '../utils';
 import { COLLAPSE_KEY } from '../collapse';
 
-// Composables
-import { raf, doubleRaf, useParent } from '@vant/use';
 import { useLazyRender } from '../composables/use-lazy-render';
 
-// Components
-import { Cell } from '../cell';
 import { collapseItemProps, CELL_SLOTS } from './types'
 
 const props = defineProps(collapseItemProps)
@@ -92,8 +88,6 @@ watch(expanded, (value, oldValue) => {
     show.value = true;
   }
 
-  // Use raf: flick when opened in safari
-  // Use nextTick: closing animation failed when set `user-select: none`
   const tick = value ? nextTick : raf;
 
   tick(() => {
@@ -106,7 +100,6 @@ watch(expanded, (value, oldValue) => {
       const contentHeight = `${offsetHeight}px`;
       wrapperRef.value.style.height = value ? '0' : contentHeight;
 
-      // use double raf to ensure animation can start
       doubleRaf(() => {
         if (wrapperRef.value) {
           wrapperRef.value.style.height = value ? contentHeight : '0';

@@ -1,21 +1,26 @@
 import type { InjectionKey } from 'vue'
-import type { CollapseProvide } from './types'
+import _Collapse from './Collapse.vue'
 import { createNamespace } from '../utils'
+
+export const Collapse = _Collapse
+export default Collapse
+
+export { collapseProps } from './types'
+import type {
+  CollapseProps,
+  CollapseInstance,
+  CollapseToggleAllOptions,
+  CollapseProvide
+} from './types'
 
 const [name] = createNamespace('collapse')
 export const COLLAPSE_KEY: InjectionKey<CollapseProvide> = Symbol(name)
 
-// conponents
-import _Collapse from './Collapse.vue'
-
-export const Collapse = _Collapse
-export default Collapse
-export { collapseProps } from './types'
-export type {
+export {
   CollapseProps,
   CollapseInstance,
-  CollapseToggleAllOptions,
-} from './types'
+  CollapseToggleAllOptions
+}
 
 declare module 'vue' {
   export interface GlobalComponents {

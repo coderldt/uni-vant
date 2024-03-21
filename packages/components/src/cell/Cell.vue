@@ -56,17 +56,14 @@
     useSlots,
   } from 'vue';
 
-  // Utils
   import {
     createNamespace,
   } from '../utils';
 
   import { CellSize, CellArrowDirection, cellSharedProps, cellProps } from './types'
 
-  // Composables
   import { useRoute, routeProps } from '../composables/use-route';
 
-  // Components
   import { Icon } from '../icon';
 
   const props = defineProps(cellProps)
