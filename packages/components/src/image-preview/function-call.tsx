@@ -1,9 +1,10 @@
-import { extend, inBrowser, ComponentInstance } from '../utils';
-import { mountComponent, usePopupState } from '../utils/mount-component';
-import VanImagePreview from './ImagePreview';
-import type { ImagePreviewOptions } from './types';
+import type { ComponentInstance } from '../utils'
+import { extend, inBrowser } from '../utils'
+import { mountComponent, usePopupState } from '../utils/mount-component'
+import VanImagePreview from './ImagePreview'
+import type { ImagePreviewOptions } from './types'
 
-let instance: ComponentInstance;
+let instance: ComponentInstance
 
 const defaultConfig: ImagePreviewOptions = {
   loop: true,
@@ -29,15 +30,15 @@ const defaultConfig: ImagePreviewOptions = {
   closeOnPopstate: true,
   closeOnClickOverlay: true,
   closeIconPosition: 'top-right',
-};
+}
 
 function initInstance() {
   ({ instance } = mountComponent({
     setup() {
-      const { state, toggle } = usePopupState();
+      const { state, toggle } = usePopupState()
       const onClosed = () => {
-        (state as any).images = [];
-      };
+        (state as any).images = []
+      }
 
       return () => (
         <VanImagePreview
@@ -45,32 +46,28 @@ function initInstance() {
           onClosed={onClosed}
           onUpdate:show={toggle}
         />
-      );
+      )
     },
-  }));
+  }))
 }
 
 /**
  * Display a full-screen image preview component
  */
-export const showImagePreview = (
-  options: string[] | ImagePreviewOptions,
-  startPosition = 0,
-) => {
+export function showImagePreview(options: string[] | ImagePreviewOptions,
+  startPosition = 0) {
   /* istanbul ignore if */
-  if (!inBrowser) {
-    return;
-  }
+  if (!inBrowser)
+    return
 
-  if (!instance) {
-    initInstance();
-  }
+  if (!instance)
+    initInstance()
 
   options = Array.isArray(options)
     ? { images: options, startPosition }
-    : options;
+    : options
 
-  instance.open(extend({}, defaultConfig, options));
+  instance.open(extend({}, defaultConfig, options))
 
-  return instance;
-};
+  return instance
+}

@@ -1,49 +1,51 @@
 import {
-  ref,
-  watch,
-  nextTick,
-  reactive,
-  onMounted,
-  defineComponent,
-  type PropType,
   type CSSProperties,
   type ExtractPropTypes,
+  type PropType,
   type TeleportProps,
-} from 'vue';
+  defineComponent,
+  nextTick,
+  onMounted,
+  reactive,
+  ref,
+  watch,
+} from 'vue'
 
 // Utils
+import { useRect } from '@vant/use'
+import type { Interceptor } from '../utils'
 import {
+  HAPTICS_FEEDBACK,
+  callInterceptor,
+  createNamespace,
+  makeArrayProp,
+  makeNumericProp,
+  makeStringProp,
   pick,
   truthProp,
   unknownProp,
-  Interceptor,
-  windowWidth,
   windowHeight,
-  makeArrayProp,
-  makeStringProp,
-  makeNumericProp,
-  callInterceptor,
-  createNamespace,
-  HAPTICS_FEEDBACK,
-} from '../utils';
+  windowWidth,
+} from '../utils'
 
 // Composables
-import { useRect } from '@vant/use';
-import { useExpose } from '../composables/use-expose';
+import { useExpose } from '../composables/use-expose'
 
 // Components
-import { Icon } from '../icon';
-import { Swipe, SwipeInstance, SwipeToOptions } from '../swipe';
-import { Popup, PopupCloseIconPosition } from '../popup';
-import ImagePreviewItem from './ImagePreviewItem';
+import { Icon } from '../icon'
+import type { SwipeInstance, SwipeToOptions } from '../swipe'
+import { Swipe } from '../swipe'
+import type { PopupCloseIconPosition } from '../popup'
+import { Popup } from '../popup'
+import ImagePreviewItem from './ImagePreviewItem'
 
 // Types
-import {
-  ImagePreviewScaleEventParams,
+import type {
   ImagePreviewItemInstance,
-} from './types';
+  ImagePreviewScaleEventParams,
+} from './types'
 
-const [name, bem] = createNamespace('image-preview');
+const [name, bem] = createNamespace('image-preview')
 
 const popupProps = [
   'show',
@@ -51,7 +53,7 @@ const popupProps = [
   'transition',
   'overlayStyle',
   'closeOnPopstate',
-] as const;
+] as const
 
 export const imagePreviewProps = {
   show: Boolean,
@@ -77,9 +79,9 @@ export const imagePreviewProps = {
   closeOnClickOverlay: truthProp,
   closeIconPosition: makeStringProp<PopupCloseIconPosition>('top-right'),
   teleport: [String, Object] as PropType<TeleportProps['to']>,
-};
+}
 
-export type ImagePreviewProps = ExtractPropTypes<typeof imagePreviewProps>;
+export type ImagePreviewProps = ExtractPropTypes<typeof imagePreviewProps>
 
 export default defineComponent({
   name,
@@ -89,43 +91,43 @@ export default defineComponent({
   emits: ['scale', 'close', 'closed', 'change', 'longPress', 'update:show'],
 
   setup(props, { emit, slots }) {
-    const swipeRef = ref<SwipeInstance>();
-    const activedPreviewItemRef = ref<ImagePreviewItemInstance>();
+    const swipeRef = ref<SwipeInstance>()
+    const activedPreviewItemRef = ref<ImagePreviewItemInstance>()
 
     const state = reactive({
       active: 0,
       rootWidth: 0,
       rootHeight: 0,
       disableZoom: false,
-    });
+    })
 
     const resize = () => {
       if (swipeRef.value) {
-        const rect = useRect(swipeRef.value.$el);
-        state.rootWidth = rect.width;
-        state.rootHeight = rect.height;
-        swipeRef.value.resize();
+        const rect = useRect(swipeRef.value.$el)
+        state.rootWidth = rect.width
+        state.rootHeight = rect.height
+        swipeRef.value.resize()
       }
-    };
+    }
 
     const emitScale = (args: ImagePreviewScaleEventParams) =>
-      emit('scale', args);
+      emit('scale', args)
 
-    const updateShow = (show: boolean) => emit('update:show', show);
+    const updateShow = (show: boolean) => emit('update:show', show)
 
     const emitClose = () => {
       callInterceptor(props.beforeClose, {
         args: [state.active],
         done: () => updateShow(false),
-      });
-    };
+      })
+    }
 
     const setActive = (active: number) => {
       if (active !== state.active) {
-        state.active = active;
-        emit('change', active);
+        state.active = active
+        emit('change', active)
       }
-    };
+    }
 
     const renderIndex = () => {
       if (props.showIndex) {
@@ -135,23 +137,22 @@ export default defineComponent({
               ? slots.index({ index: state.active })
               : `${state.active + 1} / ${props.images.length}`}
           </div>
-        );
+        )
       }
-    };
+    }
 
     const renderCover = () => {
-      if (slots.cover) {
-        return <div class={bem('cover')}>{slots.cover()}</div>;
-      }
-    };
+      if (slots.cover)
+        return <div class={bem('cover')}>{slots.cover()}</div>
+    }
 
     const onDragStart = () => {
-      state.disableZoom = true;
-    };
+      state.disableZoom = true
+    }
 
     const onDragEnd = () => {
-      state.disableZoom = false;
-    };
+      state.disableZoom = false
+    }
 
     const renderImages = () => (
       <Swipe
@@ -173,9 +174,8 @@ export default defineComponent({
               image: slots.image,
             }}
             ref={(item) => {
-              if (index === state.active) {
-                activedPreviewItemRef.value = item as ImagePreviewItemInstance;
-              }
+              if (index === state.active)
+                activedPreviewItemRef.value = item as ImagePreviewItemInstance
             }}
             src={image}
             show={props.show}
@@ -194,7 +194,7 @@ export default defineComponent({
           />
         ))}
       </Swipe>
-    );
+    )
 
     const renderClose = () => {
       if (props.closeable) {
@@ -208,49 +208,50 @@ export default defineComponent({
             ]}
             onClick={emitClose}
           />
-        );
+        )
       }
-    };
+    }
 
-    const onClosed = () => emit('closed');
+    const onClosed = () => emit('closed')
 
     const swipeTo = (index: number, options?: SwipeToOptions) =>
-      swipeRef.value?.swipeTo(index, options);
+      swipeRef.value?.swipeTo(index, options)
 
     useExpose({
       resetScale: () => {
-        activedPreviewItemRef.value?.resetScale();
+        activedPreviewItemRef.value?.resetScale()
       },
       swipeTo,
-    });
+    })
 
-    onMounted(resize);
+    onMounted(resize)
 
-    watch([windowWidth, windowHeight], resize);
+    watch([windowWidth, windowHeight], resize)
 
     watch(
       () => props.startPosition,
-      (value) => setActive(+value),
-    );
+      value => setActive(+value),
+    )
 
     watch(
       () => props.show,
       (value) => {
-        const { images, startPosition } = props;
+        const { images, startPosition } = props
         if (value) {
-          setActive(+startPosition);
+          setActive(+startPosition)
           nextTick(() => {
-            resize();
-            swipeTo(+startPosition, { immediate: true });
-          });
-        } else {
+            resize()
+            swipeTo(+startPosition, { immediate: true })
+          })
+        }
+        else {
           emit('close', {
             index: state.active,
             url: images[state.active],
-          });
+          })
         }
       },
-    );
+    )
 
     return () => (
       <Popup
@@ -265,6 +266,6 @@ export default defineComponent({
         {renderIndex()}
         {renderCover()}
       </Popup>
-    );
+    )
   },
-});
+})
