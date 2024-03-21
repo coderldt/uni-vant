@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Badge, Button, Col, Overlay, Rate, Row, Space, Circle } from 'uni-vant'
+import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Space } from 'uni-vant'
 import { ref } from 'vue'
 import { Callapse } from '../components'
 
@@ -13,7 +13,6 @@ function onClick() {
 
 const currentRate = ref(20)
 const text = ref('测试文本')
-
 </script>
 
 <template>
@@ -104,6 +103,22 @@ const text = ref('测试文本')
       </Space>
     </div>
     <Callapse/>
+
+    <Image
+      width="100"
+      height="100"
+      fit="cover"
+      round
+      position="left"
+      src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+    />
+
+    <Image
+      width="100"
+      height="100"
+      lazy-load
+      src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+    />
   </view>
 </template>
 
@@ -114,5 +129,14 @@ const text = ref('测试文本')
     background: #f2f3f5;
     border-radius: 4px;
     margin-left: 30px;
+  }
+
+  .box {
+    padding: 20px;
+    background: #eaeaea;
+    border-radius: 10px;
+    h2 {
+      margin: 20px 0;
+    }
   }
 </style>

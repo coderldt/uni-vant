@@ -12,4 +12,5 @@ export * from './circle'
 export * from './cell'
 export * from './collapse'
 export * from './collapse-item'
-
+export * from './image'
+export * from './lazyload'
