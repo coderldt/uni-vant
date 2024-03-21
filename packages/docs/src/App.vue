@@ -14,4 +14,5 @@ onHide(() => {
 
 <style lang="less">
 @import "../../components/src/style/base.less";
+@import "./style/common.less";
 </style>

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Space } from 'uni-vant'
 import { ref } from 'vue'
+import { Callapse } from '../components'
 
-const show = ref(true)
+const show = ref(false)
 const disabled = ref(false)
 const rateVal = ref(3)
 function onClick() {
@@ -101,6 +102,7 @@ const text = ref('测试文本')
         />
       </Space>
     </div>
+    <Callapse/>
 
     <Image
       width="100"
