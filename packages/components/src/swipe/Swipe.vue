@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {
   type CSSProperties,
-  type InjectionKey,
+  type ComponentPublicInstance,
   computed,
   nextTick,
   onActivated,
@@ -17,7 +17,7 @@ import {
 import {
   doubleRaf,
   useChildren,
-  useEventListener,
+  // useEventListener,
   usePageVisibility,
 } from '@vant/use'
 import { useSlots } from 'vue'
@@ -39,7 +39,8 @@ import { useExpose } from '../composables/use-expose'
 import { onPopupReopen } from '../composables/on-popup-reopen'
 
 // Types
-import type { SwipeExpose, SwipeProvide, SwipeState, SwipeToOptions } from './types'
+import type { SwipeExpose, SwipeState, SwipeToOptions } from './types'
+import { SWIPE_KEY } from '.'
 
 const props = defineProps({
   loop: truthProp,
@@ -57,8 +58,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['change', 'dragStart', 'dragEnd'])
 const [name, bem] = createNamespace('swipe')
-const SWIPE_KEY: InjectionKey<SwipeProvide> = Symbol(name)
-const root = ref<HTMLElement>()
+const root = ref<ComponentPublicInstance>()
 const track = ref<HTMLElement>()
 const state = reactive<SwipeState>({
   rect: null,
@@ -238,17 +238,17 @@ function autoplay() {
     }, +props.autoplay)
   }
 }
+const rootEl = computed(() => root.value?.$el)
 
 // initialize swipe position
 function initialize(active = +props.initialSwipe) {
   if (!root.value)
     return
-
   const cb = () => {
-    if (!isHidden(root)) {
+    if (!isHidden(rootEl.value)) {
       const rect = {
-        width: root.value!.offsetWidth,
-        height: root.value!.offsetHeight,
+        width: rootEl.value!.offsetWidth,
+        height: rootEl.value!.offsetHeight,
       }
       state.rect = rect
       state.width = +(props.width ?? rect.width)
@@ -273,7 +273,7 @@ function initialize(active = +props.initialSwipe) {
   }
 
   // issue: https://github.com/vant-ui/vant/issues/10052
-  if (isHidden(root))
+  if (isHidden(rootEl.value))
     nextTick().then(cb)
   else
     cb()
@@ -431,9 +431,9 @@ onDeactivated(stopAutoplay)
 onBeforeUnmount(stopAutoplay)
 
 // useEventListener will set passive to `false` to eliminate the warning of Chrome
-useEventListener('touchmove', onTouchMove, {
-  target: track,
-})
+// useEventListener('touchmove', onTouchMove, {
+//   target: track,
+// })
 const slots = useSlots()
 </script>
 
