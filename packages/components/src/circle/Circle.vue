@@ -113,12 +113,14 @@ const getHoverStyle = computed(() => {
       <view v-if="getGradientColor.length">
         <defs>
           <linearGradient :id="id" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop
-              v-for="(key, index) in getGradientColor"
-              :key="index"
-              :offset="key"
-              :stop-color="color[key]"
-            />
+            <template v-if="color && color.length">
+              <stop
+                v-for="(key, index) in getGradientColor"
+                :key="index"
+                :offset="key"
+                :stop-color="color[key as keyof typeof color]"
+              />
+            </template>
           </linearGradient>
         </defs>
       </view>
