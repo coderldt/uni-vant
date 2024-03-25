@@ -59,7 +59,8 @@ const props = defineProps({
 const emit = defineEmits(['change', 'dragStart', 'dragEnd'])
 const [name, bem] = createNamespace('swipe')
 const root = ref<ComponentPublicInstance>()
-const track = ref<HTMLElement>()
+const track = ref<ComponentPublicInstance>()
+const trackEl = computed(() => track.value?.$el)
 const state = reactive<SwipeState>({
   rect: null,
   width: 0,
@@ -432,14 +433,14 @@ onBeforeUnmount(stopAutoplay)
 
 // useEventListener will set passive to `false` to eliminate the warning of Chrome
 // useEventListener('touchmove', onTouchMove, {
-//   target: track,
+//   target: trackEl,
 // })
 const slots = useSlots()
 </script>
 
 <template>
   <view ref="root" :class="bem()">
-    <view ref="track" :style="trackStyle" :class="bem('track', { vertical: props.vertical })" @touchstart="onTouchStart" @touchend="onTouchEnd" @touchcancel="onTouchEnd">
+    <view ref="track" :style="trackStyle" :class="bem('track', { vertical: props.vertical })" @touchstart="onTouchStart" @touchend="onTouchEnd" @touchcancel="onTouchEnd" @touchmove="onTouchMove">
       <slot />
     </view>
 

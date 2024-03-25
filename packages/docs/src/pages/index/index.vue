@@ -102,8 +102,8 @@ const text = ref('测试文本')
         />
       </Space>
     </div>
-    <Callapse/>
-    <CountDown/>
+    <Callapse />
+    <CountDown />
 
     <Image
       width="100"
@@ -121,7 +121,7 @@ const text = ref('测试文本')
       src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
     />
 
-    <Swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+    <Swipe class="my-swipe" :loop="false">
       <SwipeItem>1</SwipeItem>
       <SwipeItem>2</SwipeItem>
       <SwipeItem>3</SwipeItem>

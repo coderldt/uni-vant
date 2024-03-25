@@ -1,7 +1,8 @@
 {
   "name": "uni-vant",
   "scripts": {
-    "dev": "pnpm --dir ./packages/docs dev:h5"
+    "dev": "pnpm --dir ./packages/docs dev:h5",
+    "dev:mp-weixin": "pnpm --dir ./packages/docs dev:mp-weixin"
   },
   "dependencies": {
     "@vant/use": "workspace:*"
