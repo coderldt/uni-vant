@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Space } from 'uni-vant'
+import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Space, Swipe, SwipeItem } from 'uni-vant'
 import { ref } from 'vue'
 import { Callapse } from '../components'
 
@@ -119,6 +119,13 @@ const text = ref('测试文本')
       lazy-load
       src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
     />
+
+    <Swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+      <SwipeItem>1</SwipeItem>
+      <SwipeItem>2</SwipeItem>
+      <SwipeItem>3</SwipeItem>
+      <SwipeItem>4</SwipeItem>
+    </Swipe>
   </view>
 </template>
 
@@ -138,5 +145,13 @@ const text = ref('测试文本')
     h2 {
       margin: 20px 0;
     }
+  }
+
+  .my-swipe .van-swipe-item {
+    color: #fff;
+    font-size: 20px;
+    line-height: 150px;
+    text-align: center;
+    background-color: #39a9ed;
   }
 </style>

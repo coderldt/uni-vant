@@ -10,7 +10,7 @@ import {
 // Utils
 import { useParent } from '@vant/use'
 import { createNamespace } from '../utils'
-import { SWIPE_KEY } from '../swipe/Swipe'
+import { SWIPE_KEY } from '../swipe'
 
 // Composables
 import { useExpose } from '../composables/use-expose'
