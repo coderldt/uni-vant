@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Space } from 'uni-vant'
 import { ref } from 'vue'
-import { Callapse } from '../components'
+import { Callapse, CountDown } from '../components'
 
 const show = ref(false)
 const disabled = ref(false)
@@ -103,6 +103,7 @@ const text = ref('测试文本')
       </Space>
     </div>
     <Callapse/>
+    <CountDown/>
 
     <Image
       width="100"
