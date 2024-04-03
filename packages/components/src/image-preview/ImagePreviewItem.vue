@@ -1,3 +1,4 @@
+<script lang="ts" setup>
 import {
   type CSSProperties,
   type ExtractPropTypes,
@@ -47,7 +48,7 @@ const bem = createNamespace('image-preview')[1]
 
 const longImageRatio = 2.6
 
-const imagePreviewItemProps = {
+const props = defineProps({
   src: String,
   show: Boolean,
   active: Number,
@@ -59,19 +60,9 @@ const imagePreviewItemProps = {
   doubleScale: Boolean,
   closeOnClickImage: Boolean,
   closeOnClickOverlay: Boolean,
-}
-
-export type ImagePreviewItemProps = ExtractPropTypes<
-  typeof imagePreviewItemProps
->
-
-export default defineComponent({
-  props: imagePreviewItemProps,
-
-  emits: ['scale', 'close', 'longPress'],
-
-  setup(props, { emit, slots }) {
-    const state = reactive({
+})
+const emit = defineEmits(['scale', 'close', 'longPress'])
+const state = reactive({
       scale: 1,
       moveX: 0,
       moveY: 0,
@@ -391,39 +382,10 @@ export default defineComponent({
     })
 
     useExpose({ resetScale })
+</script>
 
-    return () => {
-      const imageSlots = {
-        loading: () => <Loading type="spinner" />,
-      }
-
-      return (
-        <SwipeItem
-          ref={swipeItem}
-          class={bem('swipe-item')}
-          onTouchstartPassive={onTouchStart}
-          onTouchend={onTouchEnd}
-          onTouchcancel={onTouchEnd}
-        >
-          {slots.image
-            ? (
-            <div class={bem('image-wrap')}>
-              {slots.image({ src: props.src })}
-            </div>
-              )
-            : (
-            <Image
-              v-slots={imageSlots}
-              ref={imageRef}
-              src={props.src}
-              fit="contain"
-              class={bem('image', { vertical: vertical.value })}
-              style={imageStyle.value}
-              onLoad={onLoad}
-            />
-              )}
-        </SwipeItem>
-      )
-    }
-  },
-})
+<template>
+  <SwipeItem ref="swipeItem" :class="bem('swipe-item')">
+    <template v-if="slots.image"></template>
+  </SwipeItem>
+</template>
