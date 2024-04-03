@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import './index.less'
 
-import { Comment, Fragment, Text, computed, useSlots } from 'vue'
+import { Comment, Fragment, Text, computed, getCurrentInstance, onMounted, useSlots } from 'vue'
 import type { CSSProperties, PropType, VNode } from 'vue'
-
 import { createNamespace } from '../utils'
+
 import type { SpaceAlign, SpaceSize } from './types'
 
 const props = defineProps({
@@ -20,6 +20,8 @@ const props = defineProps({
   wrap: Boolean,
   fill: Boolean,
 })
+
+const ctx = getCurrentInstance()
 
 const [name, bem] = createNamespace('space')
 
@@ -70,7 +72,21 @@ function getMarginStyle(isLast: boolean): CSSProperties {
   return style
 }
 
-const getDefaultSlot = computed(() => filterEmpty(slots.default?.()))
+const getDefaultSlot = computed(() => {
+  const data = filterEmpty(slots.default?.())
+  console.log(data, 'data')
+  return data
+})
+
+onMounted(() => {
+  // const query = uni.createSelectorQuery().in(ctx)
+  // query.selectAll('.van-space > *').fields({ node: true, size: true }, (data) => {
+  //   console.log(`得到fields位置信息${data[0].node}`)
+  // }).exec()
+  //     .boundingClientRect((data) => {
+  //   console.log(`得到布局位置信息${JSON.stringify(data)}`)
+  // }).exec()
+})
 </script>
 
 <template>
