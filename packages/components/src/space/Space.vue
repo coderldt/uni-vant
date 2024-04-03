@@ -98,13 +98,14 @@ onMounted(() => {
       fill,
     })"
   >
-    <view
-      v-for="(item, index) in getDefaultSlot"
-      :key="`item-${index}`"
-      :class="`${name}-item`"
-      :style="getMarginStyle(index === getDefaultSlot.length - 1)"
-    >
-      <component :is="item" />
-    </view>
+    <slot />
+    <!--    <view -->
+    <!--      v-for="(item, index) in getDefaultSlot" -->
+    <!--      :key="`item-${index}`" -->
+    <!--      :class="`${name}-item`" -->
+    <!--      :style="getMarginStyle(index === getDefaultSlot.length - 1)" -->
+    <!--    > -->
+    <!--      <component :is="item" /> -->
+    <!--    </view> -->
   </view>
 </template>

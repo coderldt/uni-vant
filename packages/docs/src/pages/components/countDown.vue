@@ -24,7 +24,7 @@ const onFinish = () => showToast('倒计时结束')
     <CountDown :time="time" />
     <CountDown :time="time" format="DD 天 HH 时 mm 分 ss 秒" />
     <CountDown :time="time">
-      <template #default="timeData">
+      <template #default="{ timeData }">
         <text class="block">
           {{ timeData.hours }}
         </text>
