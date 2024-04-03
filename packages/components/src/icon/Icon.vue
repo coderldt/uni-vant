@@ -53,7 +53,11 @@ const isImageIcon = isImage(props.name)
       fontSize: addUnit(size),
     }"
     :content="badge"
-    v-bind="badgeProps"
+    :max="badgeProps?.max"
+    :color="badgeProps?.color"
+    :offset="badgeProps?.offset"
+    :show-zero="badgeProps?.showZero"
+    :position="badgeProps?.position"
   >
     <slot />
     <template v-if="isImageIcon">
