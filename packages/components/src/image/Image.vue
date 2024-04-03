@@ -160,8 +160,27 @@ const slots = useSlots()
 <template>
   <view :class="bem({ round: props.round, block: props.block })" :style="style">
     <template v-if="!error && src">
-      <image v-if="lazyLoad" ref="imageRef" v-lazy="src" v-bind="imageAttrs" />
-      <image v-else ref="imageRef" :src="src" v-bind="imageAttrs" @load="onLoad" @error="onError" />
+      <!-- <image v-if="lazyLoad" ref="imageRef" v-lazy="src" v-bind="imageAttrs" /> -->
+      <image
+        v-if="lazyLoad"
+        ref="imageRef"
+        :alt="imageAttrs.alt"
+        :class="imageAttrs.class"
+        :style="imageAttrs.style"
+        :crossorigin="imageAttrs.crossorigin"
+        :referrerpolicy="imageAttrs.referrerpolicy"
+      />
+      <image
+        v-else ref="imageRef"
+        :src="src"
+        :alt="imageAttrs.alt"
+        :class="imageAttrs.class"
+        :style="imageAttrs.style"
+        :crossorigin="imageAttrs.crossorigin"
+        :referrerpolicy="imageAttrs.referrerpolicy"
+        @load="onLoad"
+        @error="onError"
+      />
     </template>
 
     <template v-if="loading && showLoading">

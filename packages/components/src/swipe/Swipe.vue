@@ -398,6 +398,8 @@ useExpose<SwipeExpose>({
   state,
   resize,
   swipeTo,
+  active: activeIndicator.value,
+  total: count.value,
 })
 
 linkChildren({
@@ -445,7 +447,7 @@ const slots = useSlots()
     </view>
 
     <template v-if="slots.indicator">
-      <slot name="indicator" :active="activeIndicator" :total="count" />
+      <slot name="indicator" />
     </template>
     <template v-else-if="props.showIndicators && count > 1">
       <view :class="bem('indicators', { vertical: props.vertical })">

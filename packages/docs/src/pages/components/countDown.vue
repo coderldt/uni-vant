@@ -1,6 +1,6 @@
 <script lang='ts' setup>
 import { ref } from 'vue'
-import { Button, CountDown, Space } from 'uni-vant'
+import { Button, CountDown } from 'uni-vant'
 
 const time = ref(30 * 60 * 60 * 1000)
 
@@ -50,7 +50,6 @@ const onFinish = () => showToast('倒计时结束')
       format="ss:SSS"
       @finish="onFinish"
     />
-    <Space>
       <Button icon="play-circle-o" @click="start">
         开始
       </Button>
@@ -60,6 +59,5 @@ const onFinish = () => showToast('倒计时结束')
       <Button icon="replay" @click="reset">
         重置
       </Button>
-    </Space>
   </view>
 </template>

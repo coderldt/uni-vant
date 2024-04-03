@@ -34,6 +34,7 @@ import { useExpose } from '../composables/use-expose'
 import { Icon } from '../icon'
 import { type ImagePreviewOptions, showImagePreview } from '../image-preview'
 import type { ImageFit } from '../image'
+import RenderPreviewItem from './RenderPreviewItem.vue'
 
 // Types
 import {
@@ -301,8 +302,29 @@ const slots = useSlots()
   <view :class="bem()">
     <view :class="bem('wrapper', { disabled })">
       <template v-if="props.previewImage">
-        <template v-for="(item, index) in props.modelValue">
-          {{ index }}
+        <template v-for="(item, index) in props.modelValue" :key="item.url">
+          <RenderPreviewItem
+            :item="item"
+            :index="index"
+            :parent-props="props"
+            :delete-file="deleteFile"
+            :preview-image="previewImage"
+            :reupload-image="reuploadImage"
+            @click-uploader-file-list-item="() => {
+              emit(
+                props.reupload ? 'clickReupload' : 'clickPreview',
+                item,
+                getDetail(index),
+              )
+            }"
+          >
+            <template #preview-cover>
+              <slot v-if="slots['preview-cover']" name="preview-cover" />
+            </template>
+            <template v-if="slots['preview-delete']">
+              <slot v-if="slots['preview-delete']" name="preview-delete" />
+            </template>
+          </RenderPreviewItem>
         </template>
       </template>
 

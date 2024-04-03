@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Space, Swipe, SwipeItem } from 'uni-vant'
+import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Swipe, SwipeItem } from 'uni-vant'
 import { ref } from 'vue'
 import { Callapse, CountDown } from '../components'
 
@@ -17,7 +17,7 @@ const text = ref('测试文本')
 
 <template>
   <view class="content">
-    <Space>
+    <!-- <Space> -->
       <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
         123
       </Button>
@@ -27,7 +27,7 @@ const text = ref('测试文本')
       <Button icon="plus" type="warning">
         按钮
       </Button>
-    </Space>
+    <!-- </Space> -->
     <button @click="onClick">
       test
     </button>

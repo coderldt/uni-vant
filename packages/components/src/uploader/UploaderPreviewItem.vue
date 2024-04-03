@@ -18,6 +18,7 @@ import { Icon } from '../icon'
 import type { ImageFit } from '../image'
 import { Image } from '../image'
 import { Loading } from '../loading'
+import { useExpose } from '../composables/use-expose'
 import { bem, isImageFile, t } from './utils'
 
 // Types
@@ -53,6 +54,9 @@ const onReupload = () => emit('reupload')
 const slots = useSlots()
 const itemStatus = computed(() => props.item.status)
 const itemMessage = computed(() => props.item.message)
+useExpose({
+  previewCoverItem: extend({ index: props.index }, props.item),
+})
 </script>
 
 <template>
@@ -61,7 +65,7 @@ const itemMessage = computed(() => props.item.message)
       <Image :fit="props.imageFit" :src="props.item.objectUrl || props.item.content || props.item.url" :class="bem('preview-image')" :width="Array.isArray(previewSize) ? previewSize[0] : previewSize" :height="Array.isArray(previewSize) ? previewSize[0] : previewSize" :lazy-load="lazyLoad" @click="reupload ? onReupload : onPreview">
         <template v-if="slots['preview-cover']">
           <view :class="bem('preview-cover')">
-            <slot name="preview-cover" :item="extend({ index }, item)" />
+            <slot name="preview-cover" />
           </view>
         </template>
       </Image>
@@ -74,7 +78,7 @@ const itemMessage = computed(() => props.item.message)
         </view>
         <template v-if="slots['preview-cover']">
           <view :class="bem('preview-cover')">
-            <slot name="preview-cover" :item="extend({ index }, item)" />
+            <slot name="preview-cover" />
           </view>
         </template>
       </view>

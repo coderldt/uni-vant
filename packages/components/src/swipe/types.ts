@@ -1,5 +1,19 @@
-import type { ComponentPublicInstance, ComputedRef } from 'vue'
-import type { SwipeProps } from './Swipe'
+import type { ComponentPublicInstance, ComputedRef, ExtractPropTypes } from 'vue'
+
+export type SwipeProps = ExtractPropTypes<{
+  loop: boolean
+  width: string | number
+  height: string | number
+  vertical: boolean
+  autoplay: string | number
+  duration: string | number
+  touchable: boolean
+  lazyRender: boolean
+  initialSwipe: string | number
+  indicatorColor: string
+  showIndicators: boolean
+  stopPropagation: boolean
+}>
 
 export interface SwipeState {
   rect: { width: number; height: number } | null
@@ -21,6 +35,8 @@ export interface SwipeExpose {
   swipeTo: (index: number, options?: SwipeToOptions) => void
   /** @private */
   state: SwipeState
+  active: number
+  total: number
 }
 
 export interface SwipeProvide {

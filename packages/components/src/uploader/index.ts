@@ -1,19 +1,16 @@
-import { withInstall } from '../utils';
-import _Uploader, { UploaderProps } from './Uploader';
+import _Uploader from './Uploader.vue'
 
-export const Uploader = withInstall(_Uploader);
-export default Uploader;
-export { uploaderProps } from './Uploader';
-export type { UploaderProps };
+export const Uploader = _Uploader
+export default Uploader
 export type {
   UploaderInstance,
   UploaderThemeVars,
   UploaderResultType,
   UploaderFileListItem,
-} from './types';
+} from './types'
 
 declare module 'vue' {
   export interface GlobalComponents {
-    VanUploader: typeof Uploader;
+    VanUploader: typeof Uploader
   }
 }
