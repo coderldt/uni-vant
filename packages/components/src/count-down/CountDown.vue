@@ -45,7 +45,7 @@ defineExpose({
 
 <template>
   <div role="timer" :class="bem()">
-    <slot v-bind="current">
+    <slot :timeData="current">
       {{ timeText }}
     </slot>
   </div>
