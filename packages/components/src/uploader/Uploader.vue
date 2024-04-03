@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import './index.less'
 import {
   type PropType,
   computed,

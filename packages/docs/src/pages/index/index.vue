@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Swipe, SwipeItem } from 'uni-vant'
+import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Swipe, SwipeItem, Uploader } from 'uni-vant'
 import { ref } from 'vue'
 import { Callapse, CountDown } from '../components'
 
@@ -18,15 +18,15 @@ const text = ref('测试文本')
 <template>
   <view class="content">
     <!-- <Space> -->
-      <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
-        123
-      </Button>
-      <Button type="primary">
-        test
-      </Button>
-      <Button icon="plus" type="warning">
-        按钮
-      </Button>
+    <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
+      123
+    </Button>
+    <Button type="primary">
+      test
+    </Button>
+    <Button icon="plus" type="warning">
+      按钮
+    </Button>
     <!-- </Space> -->
     <button @click="onClick">
       test
@@ -127,6 +127,8 @@ const text = ref('测试文本')
       <SwipeItem>3</SwipeItem>
       <SwipeItem>4</SwipeItem>
     </Swipe>
+
+    <Uploader :after-read="(file) => { console.log('file', file) }" />
   </view>
 </template>
 
