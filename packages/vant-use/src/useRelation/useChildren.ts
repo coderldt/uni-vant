@@ -7,7 +7,7 @@ import type {
 } from 'vue'
 import {
   getCurrentInstance,
-  isVNode,
+  // isVNode,
   provide,
   reactive,
 } from 'vue'
@@ -15,20 +15,20 @@ import {
 export function flattenVNodes(children: VNodeNormalizedChildren) {
   const result: VNode[] = []
 
-  const traverse = (children: VNodeNormalizedChildren) => {
+  const traverse = (children: any) => {
     if (Array.isArray(children)) {
       children.forEach((child) => {
-        if (isVNode(child)) {
-          result.push(child)
+        // if (isVNode(child)) {
+        result.push(child)
 
-          if (child.component?.subTree) {
-            result.push(child.component.subTree)
-            traverse(child.component.subTree.children)
-          }
-
-          if (child.children)
-            traverse(child.children)
+        if (child.component?.subTree) {
+          result.push(child.component.subTree)
+          traverse(child.component.subTree.children)
         }
+
+        if (child.children)
+          traverse(child.children)
+        // }
       })
     }
   }

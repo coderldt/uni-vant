@@ -1,13 +1,13 @@
-import { withInstall } from '../utils'
-import _ImagePreview from './ImagePreview'
-import type { ImagePreviewProps } from './ImagePreview'
+import _ImagePreview from './ImagePreview.vue'
 
-export const ImagePreview = withInstall(_ImagePreview)
+// import type { ImagePreviewProps } from './ImagePreview'
+
+export const ImagePreview = _ImagePreview
 export default ImagePreview
-export { imagePreviewProps } from './ImagePreview'
-export { showImagePreview } from './function-call'
+// export { imagePreviewProps } from './ImagePreview'
+// export { showImagePreview } from './function-call'
 
-export type { ImagePreviewProps }
+// export type { ImagePreviewProps }
 export type {
   ImagePreviewOptions,
   ImagePreviewInstance,

@@ -1,14 +1,8 @@
-<template>
-  <view :class="getClass">
-    <slot />
-  </view>
-</template>
-
 <script setup lang="ts">
 import { useChildren } from '@vant/use'
 import { computed } from 'vue'
 import { BORDER_TOP_BOTTOM, type Numeric, createNamespace } from '../utils'
-import { validateModelValue, createCollapseKey } from './utis'
+import { validateModelValue } from './utis'
 import { collapseProps } from './types'
 import type { CollapseToggleAllOptions } from './types'
 import { COLLAPSE_KEY } from '.'
@@ -81,3 +75,9 @@ defineExpose({
   toggleAll,
 })
 </script>
+
+<template>
+  <view :class="getClass">
+    <slot />
+  </view>
+</template>

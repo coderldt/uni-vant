@@ -13,7 +13,7 @@ import {
 // Utils
 import { useCustomFieldValue } from '@vant/use'
 import {
-  extend,
+  // extend,
   getSizeStyle,
   isPromise,
   makeArrayProp,
@@ -23,7 +23,7 @@ import {
   truthProp,
 } from '../utils'
 import type {
-  ComponentInstance,
+  // ComponentInstance,
   Interceptor,
   Numeric,
 } from '../utils'
@@ -33,7 +33,7 @@ import { useExpose } from '../composables/use-expose'
 
 // Components
 import { Icon } from '../icon'
-import { type ImagePreviewOptions, showImagePreview } from '../image-preview'
+import { type ImagePreviewOptions } from '../image-preview'
 import type { ImageFit } from '../image'
 import RenderPreviewItem from './RenderPreviewItem.vue'
 
@@ -224,7 +224,7 @@ function onChange(event: Event) {
   readFile(file)
 }
 
-let imagePreview: ComponentInstance | undefined
+// let imagePreview: ComponentInstance | undefined
 
 const onClosePreview = () => emit('closePreview')
 
@@ -241,22 +241,24 @@ function previewImage(item: UploaderFileListItem) {
       })
       .filter(Boolean) as string[]
 
-    imagePreview = showImagePreview(
-      extend(
-        {
-          images,
-          startPosition: imageFiles.indexOf(item),
-          onClose: onClosePreview,
-        },
-        props.previewOptions,
-      ),
-    )
+    uni.previewImage({ urls: images })
+    // imagePreview = showImagePreview(
+    //   extend(
+    //     {
+    //       images,
+    //       startPosition: imageFiles.indexOf(item),
+    //       onClose: onClosePreview,
+    //     },
+    //     props.previewOptions,
+    //   ),
+    // )
   }
 }
 
 function closeImagePreview() {
-  if (imagePreview)
-    imagePreview.close()
+  // if (imagePreview)
+  //   imagePreview.close()
+  uni.closePreviewImage()
 }
 
 function deleteFile(item: UploaderFileListItem, index: number) {

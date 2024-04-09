@@ -3,6 +3,7 @@ import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Swipe, SwipeItem
 import { ref } from 'vue'
 import { Callapse, CountDown } from '../components'
 
+console.log('Button', Button)
 const show = ref(false)
 const disabled = ref(false)
 const rateVal = ref(3)

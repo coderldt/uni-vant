@@ -40,7 +40,7 @@ export type UploaderAfterRead = (
 
 export interface UploaderExpose {
   chooseFile: () => void
-  closeImagePreview: () => void
+  closeImagePreview?: () => void
 }
 
 export type UploaderInstance = ComponentPublicInstance<

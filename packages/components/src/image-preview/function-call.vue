@@ -2,7 +2,7 @@
 import type { ComponentInstance } from '../utils'
 import { extend, inBrowser } from '../utils'
 import { mountComponent, usePopupState } from '../utils/mount-component'
-import VanImagePreview from './ImagePreviewItem.vue'
+import VanImagePreview from './ImagePreview.vue'
 import type { ImagePreviewOptions } from './types'
 
 let instance: ComponentInstance
@@ -40,5 +40,5 @@ const { state, toggle } = usePopupState()
 </script>
 
 <template>
-  <VanImagePreview />
+  <VanImagePreview :show="state.show" @closed="onClosed" @update:show="toggle" />
 </template>
