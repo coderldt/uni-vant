@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Badge, Button, Circle, Col, Image, Overlay, Rate, Row, Swipe, SwipeItem, Uploader } from 'uni-vant'
+// import { Badge, Circle, Col, Image, Overlay, Rate, Row, Swipe, SwipeItem, Uploader } from 'uni-vant'
+import CButton  from '../../../../components/src/button/Button.vue'
+// import CRate  from '../../../../components/src/rate/Rate.vue'
 import { ref } from 'vue'
-import { Callapse, CountDown } from '../components'
+// import { Callapse, CountDown } from '../components'
 
-console.log('Button', Button)
 const show = ref(false)
 const disabled = ref(false)
 const rateVal = ref(3)
@@ -19,30 +20,30 @@ const text = ref('测试文本')
 <template>
   <view class="content">
     <!-- <Space> -->
-    <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
+    <CButton type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
       123
-    </Button>
-    <Button type="primary">
+    </CButton>
+    <CButton type="primary">
       test
-    </Button>
-    <Button icon="plus" type="warning">
+    </CButton>
+    <CButton icon="plus" type="warning">
       按钮
-    </Button>
+    </CButton>
     <!-- </Space> -->
-    <button @click="onClick">
+    <CButton @click="onClick">
       test
-    </button>
-    <Button type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
+    </CButton>
+    <CButton type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
       123
-    </Button>
-    <Button type="primary" @click="onClick">
+    </CButton>
+    <CButton type="primary" @click="onClick">
       test
-    </Button>
-    <Button icon="plus" type="warning">
+    </CButton>
+    <CButton icon="plus" type="warning">
       按钮
-    </Button>
+    </CButton>
 
-    <Row>
+    <!-- <Row>
       <Col span="8">
         span: 8
       </Col>
@@ -71,7 +72,7 @@ const text = ref('测试文本')
 
     <Overlay :show="show" @click="show = false" />
 
-    <Rate v-model="rateVal" :disabled="disabled" />
+    <CRate v-model="rateVal" :disabled="disabled" />
 
     <Badge :content="5">
       <div class="child" />
@@ -129,7 +130,7 @@ const text = ref('测试文本')
       <SwipeItem>4</SwipeItem>
     </Swipe>
 
-    <Uploader :after-read="(file) => { console.log('file', file) }" />
+    <Uploader :after-read="(file) => { console.log('file', file) }" /> -->
   </view>
 </template>
 
