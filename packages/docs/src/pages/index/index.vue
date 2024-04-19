@@ -1,8 +1,11 @@
 <script setup lang="ts">
-// import { Badge, Circle, Col, Image, Overlay, Rate, Row, Swipe, SwipeItem, Uploader } from 'uni-vant'
-import CButton  from '../../../../components/src/button/Button.vue'
-// import CRate  from '../../../../components/src/rate/Rate.vue'
+import Button from 'uni-vant/button/Button.vue'
 import { ref } from 'vue'
+
+// import { testComp } from '../components/export'
+import testComp from '../components/testComp.vue'
+
+// import CRate  from '../../../../components/src/rate/Rate.vue'
 // import { Callapse, CountDown } from '../components'
 
 const show = ref(false)
@@ -20,28 +23,23 @@ const text = ref('测试文本')
 <template>
   <view class="content">
     <!-- <Space> -->
-    <CButton type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
-      123
-    </CButton>
-    <CButton type="primary">
+    <Button type="primary">
       test
-    </CButton>
-    <CButton icon="plus" type="warning">
-      按钮
-    </CButton>
+    </Button>
+    <Button icon="plus" type="warning">
+      plus
+    </Button>
     <!-- </Space> -->
-    <CButton @click="onClick">
+    <Button @click="onClick">
       test
-    </CButton>
-    <CButton type="primary" size="small" loading loading-text="加载中..." loading-type="spinner">
-      123
-    </CButton>
-    <CButton type="primary" @click="onClick">
+    </Button>
+    <Button type="primary" @click="onClick">
       test
-    </CButton>
-    <CButton icon="plus" type="warning">
+    </Button>
+    <Button icon="plus" type="warning">
       按钮
-    </CButton>
+    </Button>
+    <testComp />
 
     <!-- <Row>
       <Col span="8">

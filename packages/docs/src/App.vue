@@ -13,6 +13,6 @@ onHide(() => {
 </script>
 
 <style lang="less">
-@import "../../components/src/style/base.less";
+@import "uni-vant/style/base.less";
 @import "./style/common.less";
 </style>

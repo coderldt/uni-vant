@@ -16,9 +16,9 @@ import {
 } from '../utils'
 
 // Components
-import { Icon } from '../icon'
+import Icon from '../icon/Icon.vue'
 import type { LoadingType } from '../loading'
-import { Loading } from '../loading'
+import Loading from '../loading/Loading.vue'
 
 // Types
 import type {
