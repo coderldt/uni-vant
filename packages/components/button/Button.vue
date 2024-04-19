@@ -10,8 +10,8 @@ import {
 import {
   BORDER_SURROUND,
   createNamespace,
+  makeNumberProp,
   makeStringProp,
-  numericProp,
   preventDefault,
 } from '../utils'
 
@@ -44,7 +44,7 @@ const props = defineProps({
   disabled: Boolean,
   iconPrefix: String,
   nativeType: makeStringProp<ButtonNativeType>('button'),
-  loadingSize: numericProp,
+  loadingSize: makeNumberProp(12),
   loadingText: String,
   loadingType: String as PropType<LoadingType>,
   iconPosition: makeStringProp<ButtonIconPosition>('left'),

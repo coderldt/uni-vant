@@ -6,14 +6,16 @@ import {
   addUnit,
   createNamespace,
   extend,
-  getSizeStyle, makeStringProp, numericProp,
+  getSizeStyle,
+  makeStringProp,
+  numericProp,
 } from '../utils'
 import type { LoadingType } from '.'
 
 const props = defineProps({
   size: numericProp,
   type: makeStringProp<LoadingType>('circular'),
-  color: String,
+  color: makeStringProp('#c9c9c9'),
   vertical: Boolean,
   textSize: numericProp,
   textColor: String,
@@ -38,9 +40,7 @@ const getStyle = computed(() => extend({ color: props.color }, getSizeStyle(prop
           <text v-for="item in 12" :key="item" :class="bem('line', String(item + 1))" />
         </template>
         <template v-else>
-          <svg :class="bem('circular')" viewBox="25 25 50 50">
-            <circle cx="50" cy="50" r="20" fill="none" />
-          </svg>
+          <view :class="bem('circular')"></view>
         </template>
       </slot>
     </text>
