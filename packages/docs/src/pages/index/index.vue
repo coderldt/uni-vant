@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CButton from '../components/button.vue'
 import Loading from '../components/loading.vue'
+import CountDown from '../components/countDown.vue'
 </script>
 
 <template>
@@ -13,6 +14,10 @@ import Loading from '../components/loading.vue'
       loading
     </view>
     <Loading />
+    <view class="title">
+      CountDown
+    </view>
+    <CountDown />
 
     <!-- <Row>
       <Col span="8">
