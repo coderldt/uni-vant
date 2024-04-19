@@ -1,40 +1,39 @@
-:root,
-:host {
-  --van-button-mini-height: 24px;
-  --van-button-mini-padding: 0 var(--van-padding-base);
-  --van-button-mini-font-size: var(--van-font-size-xs);
-  --van-button-small-height: 32px;
-  --van-button-small-padding: 0 var(--van-padding-xs);
-  --van-button-small-font-size: var(--van-font-size-sm);
-  --van-button-normal-padding: 0 15px;
-  --van-button-normal-font-size: var(--van-font-size-md);
-  --van-button-large-height: 50px;
-  --van-button-default-height: 44px;
-  --van-button-default-line-height: 1.2;
-  --van-button-default-font-size: var(--van-font-size-lg);
-  --van-button-default-color: var(--van-text-color);
-  --van-button-default-background: var(--van-background-2);
-  --van-button-default-border-color: var(--van-gray-4);
-  --van-button-primary-color: var(--van-white);
-  --van-button-primary-background: var(--van-primary-color);
-  --van-button-primary-border-color: var(--van-primary-color);
-  --van-button-success-color: var(--van-white);
-  --van-button-success-background: var(--van-success-color);
-  --van-button-success-border-color: var(--van-success-color);
-  --van-button-danger-color: var(--van-white);
-  --van-button-danger-background: var(--van-danger-color);
-  --van-button-danger-border-color: var(--van-danger-color);
-  --van-button-warning-color: var(--van-white);
-  --van-button-warning-background: var(--van-warning-color);
-  --van-button-warning-border-color: var(--van-warning-color);
-  --van-button-border-width: var(--van-border-width);
-  --van-button-radius: var(--van-radius-md);
-  --van-button-round-radius: var(--van-radius-max);
-  --van-button-plain-background: var(--van-white);
-  --van-button-disabled-opacity: var(--van-disabled-opacity);
-  --van-button-icon-size: 1.2em;
-  --van-button-loading-icon-size: 20px;
-}
+@import '../style/base.less';
+
+@--van-button-mini-height: 24px;
+@--van-button-mini-padding: 0 @--van-padding-base;
+@--van-button-mini-font-size: @--van-font-size-xs;
+@--van-button-small-height: 32px;
+@--van-button-small-padding: 0 @--van-padding-xs;
+@--van-button-small-font-size: @--van-font-size-sm;
+@--van-button-normal-padding: 0 15px;
+@--van-button-normal-font-size: @--van-font-size-md;
+@--van-button-large-height: 50px;
+@--van-button-default-height: 44px;
+@--van-button-default-line-height: 1.2;
+@--van-button-default-font-size: @--van-font-size-lg;
+@--van-button-default-color: @--van-text-color;
+@--van-button-default-background: @--van-background-2;
+@--van-button-default-border-color: @--van-gray-4;
+@--van-button-primary-color: @--van-white;
+@--van-button-primary-background: @--van-primary-color;
+@--van-button-primary-border-color: @--van-primary-color;
+@--van-button-success-color: @--van-white;
+@--van-button-success-background: @--van-success-color;
+@--van-button-success-border-color: @--van-success-color;
+@--van-button-danger-color: @--van-white;
+@--van-button-danger-background: @--van-danger-color;
+@--van-button-danger-border-color: @--van-danger-color;
+@--van-button-warning-color: @--van-white;
+@--van-button-warning-background: @--van-warning-color;
+@--van-button-warning-border-color: @--van-warning-color;
+@--van-button-border-width: @--van-border-width;
+@--van-button-radius: @--van-radius-md;
+@--van-button-round-radius: @--van-radius-max;
+@--van-button-plain-background: @--van-white;
+@--van-button-disabled-opacity: @--van-disabled-opacity;
+@--van-button-icon-size: 1.2em;
+@--van-button-loading-icon-size: 20px;
 
 .van-theme-dark {
   --van-button-plain-background: transparent;
@@ -44,16 +43,16 @@
   position: relative;
   display: inline-block;
   box-sizing: border-box;
-  height: var(--van-button-default-height);
+  height: @--van-button-default-height;
   margin: 0;
   padding: 0;
-  font-size: var(--van-button-default-font-size);
-  line-height: var(--van-button-default-line-height);
+  font-size: @--van-button-default-font-size;
+  line-height: @--van-button-default-line-height;
   text-align: center;
-  border-radius: var(--van-button-radius);
+  border-radius: @--van-button-radius;
   cursor: pointer;
-  transition: opacity var(--van-duration-fast);
-  -webkit-appearance: none;
+  transition: opacity @--van-duration-fast;
+  // -webkit-appearance: none;
   -webkit-font-smoothing: auto;
 
   &::before {
@@ -62,9 +61,9 @@
     left: 50%;
     width: 100%;
     height: 100%;
-    background: var(--van-black);
+    background: @--van-black;
     border: inherit;
-    border-color: var(--van-black);
+    border-color: @--van-black;
     border-radius: inherit; /* inherit parent's border radius */
     transform: translate(-50%, -50%);
     opacity: 0;
@@ -83,74 +82,74 @@
   }
 
   &--default {
-    color: var(--van-button-default-color);
-    background: var(--van-button-default-background);
-    border: var(--van-button-border-width) solid
-      var(--van-button-default-border-color);
+    color: @--van-button-default-color;
+    background: @--van-button-default-background;
+    border: @--van-button-border-width solid
+      @--van-button-default-border-color;
   }
 
   &--primary {
-    color: var(--van-button-primary-color);
-    background: var(--van-button-primary-background);
-    border: var(--van-button-border-width) solid
-      var(--van-button-primary-border-color);
+    color: @--van-button-primary-color;
+    background: @--van-button-primary-background;
+    border: @--van-button-border-width solid
+      @--van-button-primary-border-color;
   }
 
   &--success {
-    color: var(--van-button-success-color);
-    background: var(--van-button-success-background);
-    border: var(--van-button-border-width) solid
-      var(--van-button-success-border-color);
+    color: @--van-button-success-color;
+    background: @--van-button-success-background;
+    border: @--van-button-border-width solid
+      @--van-button-success-border-color;
   }
 
   &--danger {
-    color: var(--van-button-danger-color);
-    background: var(--van-button-danger-background);
-    border: var(--van-button-border-width) solid
-      var(--van-button-danger-border-color);
+    color: @--van-button-danger-color;
+    background: @--van-button-danger-background;
+    border: @--van-button-border-width solid
+      @--van-button-danger-border-color;
   }
 
   &--warning {
-    color: var(--van-button-warning-color);
-    background: var(--van-button-warning-background);
-    border: var(--van-button-border-width) solid
-      var(--van-button-warning-border-color);
+    color: @--van-button-warning-color;
+    background: @--van-button-warning-background;
+    border: @--van-button-border-width solid
+      @--van-button-warning-border-color;
   }
 
   &--plain {
-    background: var(--van-button-plain-background);
+    background: @--van-button-plain-background;
 
     &.van-button--primary {
-      color: var(--van-button-primary-background);
+      color: @--van-button-primary-background;
     }
 
     &.van-button--success {
-      color: var(--van-button-success-background);
+      color: @--van-button-success-background;
     }
 
     &.van-button--danger {
-      color: var(--van-button-danger-background);
+      color: @--van-button-danger-background;
     }
 
     &.van-button--warning {
-      color: var(--van-button-warning-background);
+      color: @--van-button-warning-background;
     }
   }
 
   &--large {
     width: 100%;
-    height: var(--van-button-large-height);
+    height: @--van-button-large-height;
   }
 
   &--normal {
-    padding: var(--van-button-normal-padding);
-    font-size: var(--van-button-normal-font-size);
+    padding: @--van-button-normal-padding;
+    font-size: @--van-button-normal-font-size;
   }
 
   &--small {
-    height: var(--van-button-small-height);
-    padding: var(--van-button-small-padding);
-    font-size: var(--van-button-small-font-size);
+    height: @--van-button-small-height;
+    padding: @--van-button-small-padding;
+    font-size: @--van-button-small-font-size;
   }
 
   &__loading {
@@ -159,18 +158,18 @@
 
     .van-loading__spinner {
       color: currentColor;
-      width: var(--van-button-loading-icon-size);
-      height: var(--van-button-loading-icon-size);
+      width: @--van-button-loading-icon-size;
+      height: @--van-button-loading-icon-size;
     }
   }
 
   &--mini {
-    height: var(--van-button-mini-height);
-    padding: var(--van-button-mini-padding);
-    font-size: var(--van-button-mini-font-size);
+    height: @--van-button-mini-height;
+    padding: @--van-button-mini-padding;
+    font-size: @--van-button-mini-font-size;
 
     & + .van-button--mini {
-      margin-left: var(--van-padding-base);
+      margin-left: @--van-padding-base;
     }
   }
 
@@ -181,7 +180,7 @@
 
   &--disabled {
     cursor: not-allowed;
-    opacity: var(--van-button-disabled-opacity);
+    opacity: @--van-button-disabled-opacity;
   }
 
   &--loading {
@@ -189,7 +188,7 @@
   }
 
   &--round {
-    border-radius: var(--van-button-round-radius);
+    border-radius: @--van-button-round-radius;
   }
 
   &--square {
@@ -212,7 +211,7 @@
   }
 
   &__icon {
-    font-size: var(--van-button-icon-size);
+    font-size: @--van-button-icon-size;
     line-height: inherit;
   }
 
@@ -220,7 +219,7 @@
   &__loading + &__text,
   &__text + &__icon,
   &__text + &__loading {
-    margin-left: var(--van-padding-base);
+    margin-left: @--van-padding-base;
   }
 
   &--hairline {
@@ -228,11 +227,11 @@
 
     &::after {
       border-color: inherit;
-      border-radius: calc(var(--van-button-radius) * 2);
+      border-radius: calc(@--van-button-radius * 2);
     }
 
     &.van-button--round::after {
-      border-radius: var(--van-button-round-radius);
+      border-radius: @--van-button-round-radius;
     }
 
     &.van-button--square::after {
