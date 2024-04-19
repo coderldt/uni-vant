@@ -1,23 +1,24 @@
-import { ref, Ref } from 'vue';
-import { inBrowser } from '../utils';
+import type { Ref } from 'vue'
+import { ref } from 'vue'
+import { inBrowser } from '../utils'
 
-type VisibilityState = 'hidden' | 'visible';
+type VisibilityState = 'hidden' | 'visible'
 
-let visibility: Ref<VisibilityState>;
+let visibility: Ref<VisibilityState>
 
 export function usePageVisibility() {
   if (!visibility) {
-    visibility = ref<VisibilityState>('visible');
+    visibility = ref<VisibilityState>('visible')
 
     if (inBrowser) {
       const update = () => {
-        visibility.value = document.hidden ? 'hidden' : 'visible';
-      };
+        visibility.value = document.hidden ? 'hidden' : 'visible'
+      }
 
-      update();
-      window.addEventListener('visibilitychange', update);
+      update()
+      window.addEventListener('visibilitychange', update)
     }
   }
 
-  return visibility;
+  return visibility
 }

@@ -1,8 +1,8 @@
-import { inBrowser } from '..';
+import { inBrowser } from '..'
 
 interface UseRafOptions {
-  interval?: number;
-  isLoop?: boolean;
+  interval?: number
+  isLoop?: boolean
 }
 
 export function useRaf(
@@ -10,32 +10,34 @@ export function useRaf(
   options?: UseRafOptions,
 ): () => void {
   if (inBrowser) {
-    const { interval = 0, isLoop = false } = options || {};
-    let start: number;
-    let isStopped = false;
-    let rafId: number;
+    const { interval = 0, isLoop = false } = options || {}
+    let start: number
+    let isStopped = false
+    let rafId: number
 
     const stop = () => {
-      isStopped = true;
-      cancelAnimationFrame(rafId);
-    };
+      isStopped = true
+      cancelAnimationFrame(rafId)
+    }
     const frameWrapper = (timestamp: number) => {
-      if (isStopped) return;
+      if (isStopped)
+        return
       if (start === undefined) {
-        start = timestamp;
-      } else if (timestamp - start > interval) {
-        fn(timestamp);
-        start = timestamp;
+        start = timestamp
+      }
+      else if (timestamp - start > interval) {
+        fn(timestamp)
+        start = timestamp
         if (!isLoop) {
-          stop();
-          return;
+          stop()
+          return
         }
       }
-      rafId = requestAnimationFrame(frameWrapper);
-    };
-    rafId = requestAnimationFrame(frameWrapper);
+      rafId = requestAnimationFrame(frameWrapper)
+    }
+    rafId = requestAnimationFrame(frameWrapper)
 
-    return stop;
+    return stop
   }
-  return () => {};
+  return () => {}
 }
