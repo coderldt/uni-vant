@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Button from 'uni-vant/button/Button.vue'
+import CButton from 'uni-vant/button/Button.vue'
+import VanUploader from 'uni-vant/uploader/Uploader.vue'
 import { ref } from 'vue'
 
 // import { testComp } from '../components/export'
-import testComp from '../components/testComp.vue'
 
 // import CRate  from '../../../../components/src/rate/Rate.vue'
 // import { Callapse, CountDown } from '../components'
@@ -23,23 +23,23 @@ const text = ref('测试文本')
 <template>
   <view class="content">
     <!-- <Space> -->
-    <Button type="primary">
+    <CButton type="primary" loading loading-type="spinner">
       test
-    </Button>
-    <Button icon="plus" type="warning">
+    </CButton>
+    <CButton icon="plus" type="warning">
       plus
-    </Button>
+    </CButton>
     <!-- </Space> -->
-    <Button @click="onClick">
+    <CButton @click="onClick">
       test
-    </Button>
-    <Button type="primary" @click="onClick">
+    </CButton>
+    <CButton type="primary" @click="onClick">
       test
-    </Button>
-    <Button icon="plus" type="warning">
+    </CButton>
+    <CButton icon="plus" type="warning">
       按钮
-    </Button>
-    <testComp />
+    </CButton>
+    <VanUploader />
 
     <!-- <Row>
       <Col span="8">

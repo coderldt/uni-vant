@@ -11,7 +11,7 @@ import {
 } from 'vue'
 
 // Utils
-import { useCustomFieldValue } from '@vant/use'
+import { useCustomFieldValue } from '../vant-use'
 import {
   // extend,
   getSizeStyle,

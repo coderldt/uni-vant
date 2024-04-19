@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import VanUploader from '..';
-import VanButton from '../../button';
-import { ref } from 'vue';
-import { cdnURL, useTranslate } from '../../../docs/site';
-import { UploaderFileListItem } from '../types';
-import { showToast } from '../../toast';
+import { ref } from 'vue'
+import VanUploader from '..'
+import VanButton from '../../button/Button.vue'
+import { cdnURL, useTranslate } from '../../../docs/site'
+import type { UploaderFileListItem } from '../types'
+import { showToast } from '../../toast'
 
 const t = useTranslate({
   'zh-CN': {
@@ -47,32 +47,32 @@ const t = useTranslate({
     customPreviewImage: 'Custom single preview image',
     reupload: 'Enable Reupload',
   },
-});
+})
 
 const fileList = ref([
   { url: cdnURL('leaf.jpeg') },
   { url: cdnURL('tree.jpeg') },
-]);
+])
 
-const fileList2 = ref([{ url: cdnURL('sand.jpeg') }]);
+const fileList2 = ref([{ url: cdnURL('sand.jpeg') }])
 
-const fileList3 = ref([]);
+const fileList3 = ref([])
 
-const fileList4 = ref([{ url: cdnURL('sand.jpeg') }]);
+const fileList4 = ref([{ url: cdnURL('sand.jpeg') }])
 
 const fileList5 = ref<UploaderFileListItem[]>([
   {
     url: cdnURL('sand.jpeg'),
     deletable: true,
     beforeDelete: () => {
-      showToast(t('deleteMessage'));
+      showToast(t('deleteMessage'))
     },
   },
   {
     url: cdnURL('tree.jpeg'),
     imageFit: 'contain',
   },
-]);
+])
 
 const statusFileList = ref<UploaderFileListItem[]>([
   {
@@ -85,7 +85,7 @@ const statusFileList = ref<UploaderFileListItem[]>([
     status: 'failed',
     message: t('failed'),
   },
-]);
+])
 
 const previewCoverFiles = ref<UploaderFileListItem[]>([
   {
@@ -94,79 +94,74 @@ const previewCoverFiles = ref<UploaderFileListItem[]>([
       name: t('imageName'),
     } as File,
   },
-]);
+])
 
 const previewSizeFiles = ref<UploaderFileListItem[]>([
   {
     url: cdnURL('leaf.jpeg'),
   },
-]);
+])
 
-const beforeRead = (file: File | File[]) => {
-  if (Array.isArray(file)) {
-    return true;
-  }
+function beforeRead(file: File | File[]) {
+  if (Array.isArray(file))
+    return true
+
   if (file.type !== 'image/jpeg') {
-    showToast(t('invalidType'));
-    return false;
+    showToast(t('invalidType'))
+    return false
   }
-  return true;
-};
+  return true
+}
 
-const afterRead = (
-  file: UploaderFileListItem | UploaderFileListItem[],
-  detail: unknown,
-) => {
-  console.log(file, detail);
-};
+function afterRead(file: UploaderFileListItem | UploaderFileListItem[],
+  detail: unknown) {
+  console.log(file, detail)
+}
 
-const setItemLoading = (item: UploaderFileListItem) => {
-  item.status = 'uploading';
-  item.message = t('uploading');
+function setItemLoading(item: UploaderFileListItem) {
+  item.status = 'uploading'
+  item.message = t('uploading')
 
   setTimeout(() => {
-    item.status = 'failed';
-    item.message = t('failed');
-  }, 1000);
-};
+    item.status = 'failed'
+    item.message = t('failed')
+  }, 1000)
+}
 
-const afterReadFailed = (
-  item: UploaderFileListItem | UploaderFileListItem[],
-) => {
-  if (Array.isArray(item)) {
-    item.forEach(setItemLoading);
-  } else {
-    setItemLoading(item);
-  }
-};
+function afterReadFailed(item: UploaderFileListItem | UploaderFileListItem[]) {
+  if (Array.isArray(item))
+    item.forEach(setItemLoading)
+  else
+    setItemLoading(item)
+}
 
-const onOversize = (file: UploaderFileListItem, detail: unknown) => {
-  console.log(file, detail);
-  showToast(t('overSizeTip'));
-};
+function onOversize(file: UploaderFileListItem, detail: unknown) {
+  console.log(file, detail)
+  showToast(t('overSizeTip'))
+}
 
-const fileList6 = ref([{ url: cdnURL('leaf.jpeg') }]);
+const fileList6 = ref([{ url: cdnURL('leaf.jpeg') }])
 </script>
 
 <template>
   <demo-block :title="t('basicUsage')">
-    <van-uploader :after-read="afterRead" />
+    <VanUploader :after-read="afterRead" />
   </demo-block>
 
   <demo-block :title="t('preview')">
-    <van-uploader v-model="fileList" multiple accept="*" />
+    <VanUploader v-model="fileList" multiple accept="*" />
   </demo-block>
 
   <demo-block :title="t('status')">
-    <van-uploader v-model="statusFileList" :after-read="afterReadFailed" />
+    <VanUploader v-model="statusFileList" :after-read="afterReadFailed" />
   </demo-block>
 
   <demo-block :title="t('maxCount')">
-    <van-uploader v-model="fileList2" multiple :max-count="2" />
+    <VanUploader v-model="fileList2" multiple :max-count="2" />
   </demo-block>
 
   <demo-block :title="t('maxSize')">
-    <van-uploader
+    <VanUploader
       v-model="fileList4"
       multiple
       :max-size="500 * 1024"
@@ -175,39 +170,41 @@ const fileList6 = ref([{ url: cdnURL('leaf.jpeg') }]);
   </demo-block>
 
   <demo-block :title="t('customUpload')">
-    <van-uploader>
-      <van-button type="primary" icon="plus">
+    <VanUploader>
+      <VanButton type="primary" icon="plus">
         {{ t('upload') }}
-      </van-button>
-    </van-uploader>
+      </VanButton>
+    </VanUploader>
   </demo-block>
 
   <demo-block :title="t('previewCover')">
-    <van-uploader v-model="previewCoverFiles">
+    <VanUploader v-model="previewCoverFiles">
       <template #preview-cover="{ file }">
-        <div class="preview-cover van-ellipsis">{{ file.name }}</div>
+        <div class="preview-cover van-ellipsis">
+          {{ file.name }}
+        </div>
       </template>
-    </van-uploader>
+    </VanUploader>
   </demo-block>
 
   <demo-block :title="t('previewSize')">
-    <van-uploader v-model="previewSizeFiles" preview-size="60" />
+    <VanUploader v-model="previewSizeFiles" preview-size="60" />
   </demo-block>
 
   <demo-block :title="t('beforeRead')">
-    <van-uploader v-model="fileList3" :before-read="beforeRead" />
+    <VanUploader v-model="fileList3" :before-read="beforeRead" />
   </demo-block>
 
   <demo-block :title="t('disabled')">
-    <van-uploader :after-read="afterRead" disabled />
+    <VanUploader :after-read="afterRead" disabled />
   </demo-block>
 
   <demo-block :title="t('customPreviewImage')">
-    <van-uploader v-model="fileList5" multiple accept="*" :deletable="false" />
+    <VanUploader v-model="fileList5" multiple accept="*" :deletable="false" />
   </demo-block>
 
   <demo-block :title="t('reupload')">
-    <van-uploader v-model="fileList6" reupload max-count="2" />
+    <VanUploader v-model="fileList6" reupload max-count="2" />
   </demo-block>
 </template>
 
