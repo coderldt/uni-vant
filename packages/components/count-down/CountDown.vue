@@ -29,7 +29,7 @@ const timeText = computed(() => parseFormat(props.format, current.value))
 
 function resetTime() {
   reset(+props.time)
-
+  console.log(props.autoStart, 'props.autoStart')
   if (props.autoStart)
     start()
 }
