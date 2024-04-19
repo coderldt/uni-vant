@@ -1,45 +1,18 @@
 <script setup lang="ts">
-import Button from 'uni-vant/button/Button.vue'
-import { ref } from 'vue'
-
-// import { testComp } from '../components/export'
-import testComp from '../components/testComp.vue'
-
-// import CRate  from '../../../../components/src/rate/Rate.vue'
-// import { Callapse, CountDown } from '../components'
-
-const show = ref(false)
-const disabled = ref(false)
-const rateVal = ref(3)
-function onClick() {
-  disabled.value = !disabled.value
-  console.log('disabled', disabled)
-}
-
-const currentRate = ref(20)
-const text = ref('测试文本')
+import CButton from '../components/button.vue'
+import Loading from '../components/loading.vue'
 </script>
 
 <template>
   <view class="content">
-    <!-- <Space> -->
-    <Button type="primary">
-      test
-    </Button>
-    <Button icon="plus" type="warning">
-      plus
-    </Button>
-    <!-- </Space> -->
-    <Button @click="onClick">
-      test
-    </Button>
-    <Button type="primary" @click="onClick">
-      test
-    </Button>
-    <Button icon="plus" type="warning">
-      按钮
-    </Button>
-    <testComp />
+    <view class="title">
+      button
+    </view>
+    <CButton />
+    <view class="title">
+      loading
+    </view>
+    <Loading />
 
     <!-- <Row>
       <Col span="8">
@@ -133,28 +106,9 @@ const text = ref('测试文本')
 </template>
 
 <style lang="less">
-  .child {
-    width: 40px;
-    height: 40px;
-    background: #f2f3f5;
-    border-radius: 4px;
-    margin-left: 30px;
-  }
-
-  .box {
-    padding: 20px;
-    background: #eaeaea;
-    border-radius: 10px;
-    h2 {
-      margin: 20px 0;
-    }
-  }
-
-  .my-swipe .van-swipe-item {
-    color: #fff;
-    font-size: 20px;
-    line-height: 150px;
-    text-align: center;
-    background-color: #39a9ed;
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0;
   }
 </style>
