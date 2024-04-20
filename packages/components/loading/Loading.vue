@@ -40,7 +40,7 @@ const getStyle = computed(() => extend({ color: props.color }, getSizeStyle(prop
           <text v-for="item in 12" :key="item" :class="bem('line', String(item + 1))" />
         </template>
         <template v-else>
-          <view :class="bem('circular')"></view>
+          <view :class="bem('circular')" />
         </template>
       </slot>
     </text>

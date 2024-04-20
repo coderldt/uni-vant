@@ -14,5 +14,5 @@ onHide(() => {
 
 <style lang="less">
 @import "uni-vant/style/base.less";
-@import "./style/common.less";
+// @import "./style/common.less";
 </style>

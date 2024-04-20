@@ -32,8 +32,8 @@ import type {
 import { useExpose } from '../composables/use-expose'
 
 // Components
-import { Icon } from '../icon'
-import { type ImagePreviewOptions } from '../image-preview'
+import Icon from '../icon/Icon.vue'
+import type { ImagePreviewOptions } from '../image-preview'
 import type { ImageFit } from '../image'
 import RenderPreviewItem from './RenderPreviewItem.vue'
 
@@ -286,7 +286,17 @@ function onInputClick() {
   isReuploading.value = false
 }
 
-const onClickUpload = (event: MouseEvent) => emit('clickUpload', event)
+function onClickUpload(event: MouseEvent) {
+  emit('clickUpload', event)
+  // #ifdef MP-WEIXIN
+  console.log('run')
+  uni.chooseMedia({
+    success(result) {
+      console.log('res', result)
+    },
+  })
+  // #endif
+}
 onBeforeUnmount(() => {
   urls.forEach(url => URL.revokeObjectURL(url))
 })
