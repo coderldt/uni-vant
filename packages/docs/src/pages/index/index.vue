@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import VImage from 'uni-vant/image/Image.vue'
+import Uploader from 'uni-vant/uploader/Uploader.vue';
 </script>
 
 <template>
   <view class="content">
-    <VImage
-      width="100"
-      height="100"
-      fit="cover"
-      position="left"
-      src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-    />s
-  </view>
+    <Uploader />
+  </view>s
 </template>
 
 <style lang="less">

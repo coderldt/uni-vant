@@ -84,6 +84,7 @@ const props = defineProps({
     type: [Number, String, Function] as PropType<UploaderMaxSize>,
     default: Number.POSITIVE_INFINITY,
   },
+  mode: makeStringProp<'file' | 'media'>('media'),
 })
 
 const emit = defineEmits([
@@ -289,12 +290,22 @@ function onInputClick() {
 function onClickUpload(event: MouseEvent) {
   emit('clickUpload', event)
   // #ifdef MP-WEIXIN
-  console.log('run')
-  uni.chooseMedia({
-    success(result) {
-      console.log('res', result)
-    },
-  })
+  const { mode } = props
+  if (props.mode === 'file') {
+    uni.chooseMessageFile({
+      count: 1,
+      success(result) {
+        console.log('res', result)
+      },
+    })
+  }
+  if (mode === 'media') {
+    uni.chooseMedia({
+      success(result) {
+        console.log('res', result)
+      },
+    })
+  }
   // #endif
 }
 onBeforeUnmount(() => {
@@ -346,12 +357,27 @@ const slots = useSlots()
           <view v-show="!hideUploader" :class="bem('input-wrapper')" @click="onClickUpload">
             <slot />
             <template v-if="!props.readonly">
-              <input ref="inputRef" type="file" :class="bem('input')" :accept="props.accept" :capture="props.capture as unknown as boolean" :multiple="props.multiple && reuploadIndex === -1" :disabled="props.disabled" @change="onChange" @click="onInputClick">
+              <view
+                ref="inputRef"
+                type="file"
+                :class="bem('input')"
+                :accept="props.accept"
+                :capture="props.capture as unknown as boolean"
+                :multiple="props.multiple && reuploadIndex === -1"
+                :disabled="props.disabled"
+                @change="onChange"
+                @click="onInputClick"
+              />
             </template>
           </view>
         </template>
         <template v-else>
-          <view v-show="props.showUpload && !hideUploader" :class="bem('upload', { readonly: props.readonly })" :style="getSizeStyle(props.previewSize)" @click="onClickUpload">
+          <view
+            v-show="props.showUpload && !hideUploader"
+            :class="bem('upload', { readonly: props.readonly })"
+            :style="getSizeStyle(props.previewSize)"
+            @click="onClickUpload"
+          >
             <Icon :name="props.uploadIcon" :class="bem('upload-icon')" />
             <template v-if="props.uploadText">
               <text :class="bem('upload-text')">
@@ -359,7 +385,17 @@ const slots = useSlots()
               </text>
             </template>
             <template v-if="!props.readonly">
-              <input ref="inputRef" type="file" :class="bem('input')" :accept="props.accept" :capture="props.capture as unknown as boolean" :multiple="props.multiple && reuploadIndex === -1" :disabled="props.disabled" @change="onChange" @click="onInputClick">
+              <view
+                ref="inputRef"
+                type="file"
+                :class="bem('input')"
+                :accept="props.accept"
+                :capture="props.capture as unknown as boolean"
+                :multiple="props.multiple && reuploadIndex === -1"
+                :disabled="props.disabled"
+                @change="onChange"
+                @click="onInputClick"
+              />
             </template>
           </view>
         </template>
