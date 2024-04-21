@@ -1,3 +1,7 @@
+<script lang="ts">
+export type ImageMode = 'scaleToFill' | 'aspectFit' | 'aspectFill' | 'widthFix' | 'heightFix' | 'top' | 'bottom' | 'center' | 'left' | 'right' | 'top left' | 'top right' | 'bottom left' | 'bottom right'
+</script>
+
 <script lang="ts" setup>
 import './index.less'
 import {
@@ -26,7 +30,7 @@ import {
 } from '../utils'
 
 // Components
-import { Icon } from '../icon'
+import Icon from '../icon/Icon.vue'
 
 // Types
 import type { ImageFit, ImagePosition } from './types'
@@ -50,6 +54,7 @@ const props = defineProps({
   loadingIcon: makeStringProp('photo'),
   crossorigin: String as PropType<ImgHTMLAttributes['crossorigin']>,
   referrerpolicy: String as PropType<ImgHTMLAttributes['referrerpolicy']>,
+  mode: String as PropType<ImageMode>
 })
 const emit = defineEmits(['load', 'error'])
 const [name, bem] = createNamespace('image')
@@ -57,7 +62,7 @@ const error = ref(false)
 const loading = ref(true)
 const imageRef = ref<HTMLImageElement>()
 
-const { $Lazyload } = getCurrentInstance()!.proxy!
+// const { $Lazyload } = getCurrentInstance()!.proxy!
 const style = computed(() => {
   const style: CSSProperties = {
     width: addUnit(props.width),
@@ -122,20 +127,21 @@ function onLazyLoadError({ el }: { el: HTMLElement }) {
     onError()
 }
 
-if ($Lazyload && inBrowser) {
-  $Lazyload.$on('loaded', onLazyLoaded)
-  $Lazyload.$on('error', onLazyLoadError)
+// if ($Lazyload && inBrowser) {
+//   $Lazyload.$on('loaded', onLazyLoaded)
+//   $Lazyload.$on('error', onLazyLoadError)
 
-  onBeforeUnmount(() => {
-    $Lazyload.$off('loaded', onLazyLoaded)
-    $Lazyload.$off('error', onLazyLoadError)
-  })
-}
+//   onBeforeUnmount(() => {
+//     $Lazyload.$off('loaded', onLazyLoaded)
+//     $Lazyload.$off('error', onLazyLoadError)
+//   })
+// }
 
 // In nuxt3, the image may not trigger load event,
 // so the initial complete state should be checked.
 // https://github.com/youzan/vant/issues/11335
 onMounted(() => {
+  console.log('props', props)
   nextTick(() => {
     if (imageRef.value?.complete && !props.lazyLoad)
       triggerLoad()
@@ -160,24 +166,16 @@ const slots = useSlots()
 <template>
   <view :class="bem({ round: props.round, block: props.block })" :style="style">
     <template v-if="!error && src">
-      <!-- <image v-if="lazyLoad" ref="imageRef" v-lazy="src" v-bind="imageAttrs" /> -->
       <image
-        v-if="lazyLoad"
         ref="imageRef"
-        :alt="imageAttrs.alt"
-        :class="imageAttrs.class"
-        :style="imageAttrs.style"
-        :crossorigin="imageAttrs.crossorigin"
-        :referrerpolicy="imageAttrs.referrerpolicy"
-      />
-      <image
-        v-else ref="imageRef"
         :src="src"
         :alt="imageAttrs.alt"
         :class="imageAttrs.class"
         :style="imageAttrs.style"
         :crossorigin="imageAttrs.crossorigin"
         :referrerpolicy="imageAttrs.referrerpolicy"
+        :lazy-load="lazyLoad"
+        :mode="mode"
         @load="onLoad"
         @error="onError"
       />
