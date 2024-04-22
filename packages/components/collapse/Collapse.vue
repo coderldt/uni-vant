@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useChildren } from '@vant/use'
+import { useChildren } from '../vant-use'
 import { computed, getCurrentInstance } from 'vue'
 import { BORDER_TOP_BOTTOM, type Numeric, createNamespace } from '../utils'
 import { validateModelValue } from './utis'
