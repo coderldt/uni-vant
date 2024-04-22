@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import './index.less'
-import { doubleRaf, raf, useParent } from '@vant/use'
+import { useParent, useUniRect } from '../vant-use'
 import {
   computed,
-  nextTick,
   ref,
   useSlots,
-  watch,
+  getCurrentInstance,
+  onMounted,
 } from 'vue'
 
-import { Cell, cellSharedProps } from '../cell'
+import Cell from '../cell/Cell.vue'
+import { cellSharedProps } from '../cell'
 import {
   createNamespace,
   pick,
 } from '../utils'
 import { COLLAPSE_KEY } from '../collapse'
-
-import { useLazyRender } from '../composables/use-lazy-render'
 
 import { CELL_SLOTS, collapseItemProps } from './types'
 
@@ -28,9 +27,11 @@ const cellSlots = pick(slots, CELL_SLOTS)
 
 const [_, bem] = createNamespace('collapse-item')
 
+const instance = getCurrentInstance()
+
 const wrapperRef = ref<HTMLElement>()
 const contentRef = ref<HTMLElement>()
-const { parent, index } = useParent(COLLAPSE_KEY)
+const { parent, index } = useParent(COLLAPSE_KEY, instance)
 
 // if (!parent) {
 //   if (process.env.NODE_ENV !== 'production') {
@@ -44,42 +45,13 @@ const { parent, index } = useParent(COLLAPSE_KEY)
 const name = computed(() => props.name ?? index.value)
 const expanded = computed(() => parent?.isExpanded(name.value))
 
-const show = ref(expanded.value)
-const lazyRender = useLazyRender(() => show.value || !props.lazyRender)
+const wrapperClassName = bem('wrapper')
+const contentClassName = bem('content')
+const wrapperHeight = ref(0)
 
-function onTransitionEnd() {
-  if (!expanded.value)
-    show.value = false
-  else if (wrapperRef.value)
-    wrapperRef.value.style.height = ''
-}
-
-watch(expanded, (value, oldValue) => {
-  if (oldValue === null)
-    return
-
-  if (value)
-    show.value = true
-
-  const tick = value ? nextTick : raf
-
-  tick(() => {
-    if (!contentRef.value || !wrapperRef.value)
-      return
-
-    const { offsetHeight } = contentRef.value
-    if (offsetHeight) {
-      const contentHeight = `${offsetHeight}px`
-      wrapperRef.value.style.height = value ? '0' : contentHeight
-
-      doubleRaf(() => {
-        if (wrapperRef.value)
-          wrapperRef.value.style.height = value ? contentHeight : '0'
-      })
-    }
-    else {
-      onTransitionEnd()
-    }
+onMounted(() => {
+  useUniRect(`.${contentClassName}`, instance).then(res => {
+    wrapperHeight.value = res.height
   })
 })
 
@@ -109,7 +81,7 @@ const getCellTitleAttr = computed(() => {
 </script>
 
 <template>
-  <view :class="[bem({ border: index && border })]">
+  <view :class="[bem({ border: index && border })]" @click="onClickTitle" ref="wrapperRef">
     <Cell
       v-slot="cellSlots"
       role="button"
@@ -134,14 +106,12 @@ const getCellTitleAttr = computed(() => {
       :clickable="getCellTitleAttr.clickable"
       @click="onClickTitle"
     />
-    <template v-if="show || !lazyRender">
+    <template>
       <view
-        v-show="{ show }"
-        ref="wrapperRef"
-        :class="bem('wrapper')"
-        @transitionend="onTransitionEnd"
+        :class="wrapperClassName"
+        :style="{ height: `${expanded ? wrapperHeight : 0}px` }"
       >
-        <view ref="contentRef" :class="bem('content')">
+        <view :class="contentClassName">
           <slot />
         </view>
       </view>

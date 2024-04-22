@@ -21,13 +21,13 @@ export function flattenVNodes(children: VNodeNormalizedChildren) {
         // if (isVNode(child)) {
         result.push(child)
 
-        if (child.component?.subTree) {
-          result.push(child.component.subTree)
-          traverse(child.component.subTree.children)
-        }
+        // if (child.component?.subTree) {
+        //   result.push(child.component.subTree)
+        //   traverse(child.component.subTree.children)
+        // }
 
-        if (child.children)
-          traverse(child.children)
+        // if (child.children)
+        //   traverse(child.children)
         // }
       })
     }
@@ -54,11 +54,12 @@ function findVNodeIndex(vnodes: VNode[], vnode: VNode) {
 
 // sort children instances by vnodes order
 export function sortChildren(
-  parent: ComponentInternalInstance,
+  parent: any,
   publicChildren: ComponentPublicInstance[],
   internalChildren: ComponentInternalInstance[],
 ) {
-  const vnodes = flattenVNodes(parent.subTree.children)
+  // const vnodes = flattenVNodes(parent.subTree.children)
+  const vnodes = flattenVNodes(parent.ctx.$children)
 
   internalChildren.sort(
     (a, b) => findVNodeIndex(vnodes, a.vnode) - findVNodeIndex(vnodes, b.vnode),
@@ -77,18 +78,19 @@ export function useChildren<
   // eslint-disable-next-line @typescript-eslint/ban-types
   Child extends ComponentPublicInstance = ComponentPublicInstance<{}, any>,
   ProvideValue = never,
->(key: InjectionKey<ProvideValue>) {
+>(key: InjectionKey<ProvideValue>, parent: any) {
   const publicChildren: Child[] = reactive([])
   const internalChildren: ComponentInternalInstance[] = reactive([])
-  const parent = getCurrentInstance()!
+  // const parent = getCurrentInstance()!
+
 
   const linkChildren = (value?: ProvideValue) => {
     const link = (child: ComponentInternalInstance) => {
-      if (child.proxy) {
+      // if (child.proxy) {
         internalChildren.push(child)
         publicChildren.push(child.proxy as Child)
         sortChildren(parent, publicChildren, internalChildren)
-      }
+      // }
     }
 
     const unlink = (child: ComponentInternalInstance) => {

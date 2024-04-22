@@ -71,10 +71,7 @@ function onFinish() { }
   >
     暂停
   </VanButton>
-  <VanButton
-    icon="replay"
-    @click="reset"
-  >
+  <VanButton>
     重置
   </VanButton>
 </template>
