@@ -2,6 +2,8 @@
 import Uploader from 'uni-vant/uploader/Uploader.vue'
 import VanCol from 'uni-vant/col/Col.vue'
 import VanRow from 'uni-vant/row/Row.vue'
+import VanSticky from 'uni-vant/sticky/Sticky.vue'
+import VanButton from 'uni-vant/button/Button.vue'
 
 import CountDown from '../components/countDown.vue'
 </script>
@@ -23,4 +25,18 @@ import CountDown from '../components/countDown.vue'
       span: 8
     </VanCol>
   </VanRow>
+
+  <view class="sticky-content">
+    <VanSticky>
+      <VanButton type="primary">
+        基础用法
+      </VanButton>
+    </VanSticky>
+  </view>
 </template>
+
+<style>
+.sticky-content {
+  height: 1000px;
+}
+</style>
