@@ -5,7 +5,7 @@ export const inBrowser = typeof window !== 'undefined';
 export const supportsPassive = true;
 
 export function raf(fn: FrameRequestCallback): number {
-  return inBrowser ? requestAnimationFrame(fn) : -1;
+  return setTimeout(fn, 100)
 }
 
 export function cancelRaf(id: number) {
