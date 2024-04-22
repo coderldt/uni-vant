@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useChildren } from '@vant/use'
-import { computed } from 'vue'
+import { computed, getCurrentInstance } from 'vue'
 import { BORDER_TOP_BOTTOM, type Numeric, createNamespace } from '../utils'
 import { validateModelValue } from './utis'
 import { collapseProps } from './types'
@@ -16,7 +16,9 @@ const emit = defineEmits<{
 
 const [name, bem] = createNamespace('collapse')
 
-const { linkChildren, children } = useChildren(COLLAPSE_KEY)
+const instance = getCurrentInstance()
+
+const { linkChildren, children } = useChildren(COLLAPSE_KEY, instance)
 
 const getClass = computed(() => [bem(), { [BORDER_TOP_BOTTOM]: props.border }])
 

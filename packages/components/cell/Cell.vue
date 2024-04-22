@@ -11,7 +11,7 @@ import {
 
 import { useRoute } from '../composables/use-route'
 
-import { Icon } from '../icon'
+import Icon from '../icon/Icon.vue'
 import { cellProps } from './types'
 
 const props = defineProps(cellProps)
