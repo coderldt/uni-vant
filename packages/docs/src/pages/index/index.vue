@@ -2,11 +2,14 @@
 import Uploader from 'uni-vant/uploader/Uploader.vue'
 import VanCol from 'uni-vant/col/Col.vue'
 import VanRow from 'uni-vant/row/Row.vue'
+
+import CountDown from '../components/countDown.vue'
 </script>
 
 <template>
   <view class="content">
-    <Uploader />s
+    <Uploader />
+    <CountDown />
   </view>
 
   <VanRow :horizontal-gutter="10">

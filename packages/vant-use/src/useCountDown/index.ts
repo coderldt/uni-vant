@@ -76,7 +76,6 @@ export function useCountDown(options: UseCountDownOptions) {
   }
 
   const microTick = () => {
-    console.log(1)
     rafId = raf(() => {
       // in case of call reset immediately after finish
       if (counting) {
@@ -89,7 +88,6 @@ export function useCountDown(options: UseCountDownOptions) {
   }
 
   const macroTick = () => {
-    console.log(2)
     rafId = raf(() => {
       // in case of call reset immediately after finish
       if (counting) {
@@ -109,7 +107,6 @@ export function useCountDown(options: UseCountDownOptions) {
     // see: https://github.com/vant-ui/vant/issues/7807
     // if (!inBrowser)
     //   return
-    console.log(options.millisecond, 'options.millisecond')
     if (options.millisecond)
       microTick()
     else
@@ -117,7 +114,6 @@ export function useCountDown(options: UseCountDownOptions) {
   }
 
   const start = () => {
-    console.log(!counting, '!counting')
     if (!counting) {
       endTime = Date.now() + remain.value
       counting = true
