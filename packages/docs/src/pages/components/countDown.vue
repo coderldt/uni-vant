@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import { ref } from 'vue'
 import CountDown from 'uni-vant/count-down/CountDown.vue'
-import CButton from 'uni-vant/button/Button.vue'
+import VanButton from 'uni-vant/button/Button.vue'
 
 const time1 = 30 * 60 * 60 * 1000
 const time2 = ref(30 * 60 * 60 * 1000)
@@ -59,22 +59,19 @@ function onFinish() { }
     @finish="onFinish"
   />
 
-  <CButton
+  <VanButton
     icon="play-circle-o"
     @click="start"
   >
     开始
-  </CButton>
-  <CButton
+  </VanButton>
+  <VanButton
     icon="pause-circle-o"
     @click="pause"
   >
     暂停
-  </CButton>
-  <CButton
-    icon="replay"
-    @click="reset"
-  >
+  </VanButton>
+  <VanButton>
     重置
-  </CButton>
+  </VanButton>
 </template>

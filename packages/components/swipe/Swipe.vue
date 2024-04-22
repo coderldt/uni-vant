@@ -14,13 +14,13 @@ import {
 } from 'vue'
 
 // Utils
+import { provide, useSlots } from 'vue'
 import {
   doubleRaf,
   useChildren,
   // useEventListener,
   usePageVisibility,
-} from '@vant/use'
-import { useSlots } from 'vue'
+} from '../vant-use'
 import {
   clamp,
   createNamespace,
@@ -35,7 +35,6 @@ import {
 
 // Composables
 import { useTouch } from '../composables/use-touch'
-import { useExpose } from '../composables/use-expose'
 import { onPopupReopen } from '../composables/on-popup-reopen'
 
 // Types
@@ -392,7 +391,7 @@ function swipeTo(index: number, options: SwipeToOptions = {}) {
   })
 }
 
-useExpose<SwipeExpose>({
+defineExpose<SwipeExpose>({
   prev,
   next,
   state,
@@ -402,7 +401,7 @@ useExpose<SwipeExpose>({
   total: count.value,
 })
 
-linkChildren({
+provide(SWIPE_KEY, {
   size,
   props,
   count,

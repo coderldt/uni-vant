@@ -2,6 +2,10 @@
 import Uploader from 'uni-vant/uploader/Uploader.vue';
 import CountDown from '../components/countDown.vue';
 import Callapse from '../components/callapse.vue'
+import VanCol from 'uni-vant/col/Col.vue'
+import VanRow from 'uni-vant/row/Row.vue'
+import VanSticky from 'uni-vant/sticky/Sticky.vue'
+import VanButton from 'uni-vant/button/Button.vue'
 </script>
 
 <template>
@@ -9,13 +13,29 @@ import Callapse from '../components/callapse.vue'
     <Uploader />
     <CountDown />
     <Callapse />
-  </view>s
+    <VanRow :horizontal-gutter="10">
+      <VanCol span="8">
+        span: 8
+      </VanCol>
+      <VanCol span="8">
+        span: 8
+      </VanCol>
+      <VanCol span="8">
+        span: 8
+      </VanCol>
+    </VanRow>
+    <view class="sticky-content">
+      <VanSticky>
+        <VanButton type="primary">
+          基础用法
+        </VanButton>
+      </VanSticky>
+    </view>
+  </view>
 </template>
 
-<style lang="less">
-  .title {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 10px 0;
-  }
+<style>
+.sticky-content {
+  height: 1000px;
+}
 </style>

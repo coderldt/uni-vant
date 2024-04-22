@@ -1,0 +1,12 @@
+:root,
+:host,
+page {
+  --van-sticky-z-index: 99;
+}
+
+.van-sticky {
+  &--fixed {
+    position: fixed;
+    z-index: var(--van-sticky-z-index);
+  }
+}

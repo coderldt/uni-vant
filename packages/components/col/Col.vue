@@ -1,43 +1,54 @@
-<script lang="ts" setup>
+<script lang="ts">
 import './index.less'
-import { computed } from 'vue'
-import { useParent } from '@vant/use'
+import { computed, inject } from 'vue'
 import {
   createNamespace,
   extend,
   makeNumericProp,
-  makeStringProp,
   numericProp,
 } from '../utils'
 import { ROW_KEY } from '../row'
 
+export default {
+  options: {
+    virtualHost: true,
+  },
+}
+</script>
+
+<script lang="ts" setup>
 const props = defineProps({
-  tag: makeStringProp<keyof HTMLElementTagNameMap>('div'),
   span: makeNumericProp(0),
   offset: numericProp,
 })
+
 const [name, bem] = createNamespace('col')
-const { parent, index } = useParent(ROW_KEY)
+
+const parent = inject(ROW_KEY, null)
 
 const style = computed(() => {
   if (!parent)
     return
 
-  const { spaces, verticalSpaces } = parent
+  const { horizontalGutter = 0, verticalGutter = 0 } = parent
+  const average = Number.isNaN(Number(horizontalGutter)) ? 0 : Number(horizontalGutter)
+  const averagePadding = average / 2
+
   let styles = {}
-  if (spaces && spaces.value && spaces.value[index.value]) {
-    const { left, right } = spaces.value[index.value]
+
+  if (averagePadding) {
     styles = {
-      paddingLeft: left ? `${left}px` : null,
-      paddingRight: right ? `${right}px` : null,
+      paddingLeft: `${averagePadding}px`,
+      paddingRight: `${averagePadding}px`,
     }
   }
+  if (verticalGutter) {
+    styles = extend(styles, {
+      marginBottom: `${verticalGutter}px`,
+    })
+  }
 
-  const { bottom } = verticalSpaces.value[index.value] || {}
-
-  return extend(styles, {
-    marginBottom: bottom ? `${bottom}px` : null,
-  })
+  return styles
 })
 </script>
 
