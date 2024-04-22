@@ -1,12 +1,10 @@
 <script lang='ts' setup>
 import { ref } from 'vue'
 import CountDown from 'uni-vant/count-down/CountDown.vue'
-import CButton from 'uni-vant/button/Button.vue'
+// import CButton from 'uni-vant/button/Button.vue'
 
-
-
-
-const time = ref(30 * 60 * 60 * 1000)
+const time1 = 30 * 60 * 60 * 1000
+const time2 = ref(30 * 60 * 60 * 1000)
 
 const countDown = ref<InstanceType<typeof CountDown> | null>(null)
 
@@ -19,13 +17,21 @@ function pause() {
 function reset() {
   countDown.value && countDown.value.reset()
 }
-function onFinish() {}
+function onFinish() { }
 </script>
 
 <template>
-  <CountDown :time="time" />
-  <CountDown :time="time" format="DD 天 HH 时 mm 分 ss 秒" />
-  <CountDown :time="time">
+  <CountDown :time="time1" />
+  <CountDown
+    :time="time1"
+    format="HH:mm:ss:SS"
+    millisecond
+  />
+  <CountDown
+    :time="time1"
+    format="DD 天 HH 时 mm 分 ss 秒"
+  />
+  <CountDown :time="time1">
     <template #default="{ timeData }">
       <text class="block">
         {{ timeData.hours }}
@@ -47,18 +53,27 @@ function onFinish() {}
   <CountDown
     ref="countDown"
     millisecond
-    :time="3000"
-    :auto-start="true"
-    format="ss:SSS"
+    :time="time2"
+    :auto-start="false"
+    format="HH:mm:ss:SS"
     @finish="onFinish"
   />
-  <CButton icon="play-circle-o" @click="start">
+
+  <button
+    icon="play-circle-o"
+    @click="start"
+  >
     开始
-  </CButton>
-  <CButton icon="pause-circle-o" @click="pause">
+  </button>
+  <button
+    icon="pause-circle-o"
+    @click="pause"
+  >
     暂停
-  </CButton>
-  <CButton icon="replay" @click="reset">
+  </button>
+  <button
+    icon="replay"
+    @click="reset"
+  >
     重置
-  </CButton>
-</template>
+  </button></template>
