@@ -8,7 +8,7 @@
 .generate-col(@n, @i: 1) when (@i =< @n) {
   .van-col--@{i} {
     flex: 0 0 @i * (100% / 24);
-    max-width: @i * (100% / 24);
+    width: @i * (100% / 24);
   }
 
   .van-col--offset-@{i} {
