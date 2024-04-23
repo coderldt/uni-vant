@@ -4,13 +4,15 @@ import VanCol from 'uni-vant/col/Col.vue'
 import VanRow from 'uni-vant/row/Row.vue'
 import VanSticky from 'uni-vant/sticky/Sticky.vue'
 import VanButton from 'uni-vant/button/Button.vue'
-import Callapse from '../components/callapse.vue'
 import CountDown from '../components/countDown.vue'
+import Callapse from '../components/callapse.vue'
 import VanDivider from '../components/divider.vue'
+import Empty from '../components/empty.vue'
 </script>
 
 <template>
   <view class="content">
+    <Empty />
     <VanDivider />
     <Uploader />
     <CountDown />
