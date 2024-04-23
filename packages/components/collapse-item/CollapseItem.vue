@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import './index.less'
-import { useParent, useUniRect } from '../vant-use'
 import {
   computed,
-  ref,
-  useSlots,
   getCurrentInstance,
   onMounted,
+  ref,
 } from 'vue'
+import { useParent, useUniRect } from '../vant-use'
 
 import Cell from '../cell/Cell.vue'
 import { cellSharedProps } from '../cell'
@@ -17,20 +16,15 @@ import {
 } from '../utils'
 import { COLLAPSE_KEY } from '../collapse'
 
-import { CELL_SLOTS, collapseItemProps } from './types'
+import { collapseItemProps } from './types'
 
 const props = defineProps(collapseItemProps)
-
-const slots = useSlots()
-
-const cellSlots = pick(slots, CELL_SLOTS)
 
 const [_, bem] = createNamespace('collapse-item')
 
 const instance = getCurrentInstance()
 
 const wrapperRef = ref<HTMLElement>()
-const contentRef = ref<HTMLElement>()
 const { parent, index } = useParent(COLLAPSE_KEY, instance)
 
 // if (!parent) {
@@ -50,13 +44,14 @@ const contentClassName = bem('content')
 const wrapperHeight = ref(0)
 
 onMounted(() => {
-  useUniRect(`.${contentClassName}`, instance).then(res => {
+  // TODO res type
+  useUniRect(`.${contentClassName}`, instance).then((res: any) => {
     wrapperHeight.value = res.height
   })
 })
 
 function toggle(newValue = !expanded.value) {
-  parent.toggle(name.value, newValue)
+  parent && parent.toggle(name.value, newValue)
 }
 
 function onClickTitle() {
@@ -81,9 +76,12 @@ const getCellTitleAttr = computed(() => {
 </script>
 
 <template>
-  <view :class="[bem({ border: index && border })]" @click="onClickTitle" ref="wrapperRef">
+  <view
+    ref="wrapperRef"
+    :class="[bem({ border: index && border })]"
+    @click="onClickTitle"
+  >
     <Cell
-      v-slot="cellSlots"
       role="button"
       :class="[bem('title', { disabled, expanded, borderless: !border })]"
       :aria-expanded="String(expanded)"
@@ -106,15 +104,13 @@ const getCellTitleAttr = computed(() => {
       :clickable="getCellTitleAttr.clickable"
       @click="onClickTitle"
     />
-    <template>
-      <view
-        :class="wrapperClassName"
-        :style="{ height: `${expanded ? wrapperHeight : 0}px` }"
-      >
-        <view :class="contentClassName">
-          <slot />
-        </view>
+    <view
+      :class="wrapperClassName"
+      :style="{ height: `${expanded ? wrapperHeight : 0}px` }"
+    >
+      <view :class="contentClassName">
+        <slot />
       </view>
-    </template>
+    </view>
   </view>
 </template>

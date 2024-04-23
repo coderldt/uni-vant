@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useChildren } from '../vant-use'
 import { computed, getCurrentInstance } from 'vue'
+import { useChildren } from '../vant-use'
 import { BORDER_TOP_BOTTOM, type Numeric, createNamespace } from '../utils'
 import { validateModelValue } from './utis'
 import { collapseProps } from './types'
@@ -64,6 +64,7 @@ function toggleAll(options: boolean | CollapseToggleAllOptions = {}) {
 function isExpanded(name: Numeric) {
   const { accordion, modelValue } = props
 
+  // eslint-disable-next-line n/prefer-global/process
   if (process.env.NODE_ENV !== 'production' && !validateModelValue(modelValue, accordion))
     return false
 

@@ -1,45 +1,45 @@
 import {
-  type PropType,
   type CSSProperties,
   type ExtractPropTypes,
-} from 'vue';
+  type PropType,
+} from 'vue'
 
 // Utils
 import {
   extend,
+  makeStringProp,
+  numericProp,
   truthProp,
   unknownProp,
-  numericProp,
-  makeStringProp,
-} from '../utils';
+} from '../utils'
 
-import { routeProps } from '../composables/use-route';
+import { routeProps } from '../composables/use-route'
 
-export type CellThemeVars = {
-  cellFontSize?: string;
-  cellLineHeight?: number | string;
-  cellVerticalPadding?: string;
-  cellHorizontalPadding?: string;
-  cellTextColor?: string;
-  cellBackground?: string;
-  cellBorderColor?: string;
-  cellActiveColor?: string;
-  cellRequiredColor?: string;
-  cellLabelColor?: string;
-  cellLabelFontSize?: string;
-  cellLabelLineHeight?: number | string;
-  cellLabelMarginTop?: string;
-  cellValueColor?: string;
-  cellIconSize?: string;
-  cellRightIconColor?: string;
-  cellLargeVerticalPadding?: string;
-  cellLargeTitleFontSize?: string;
-  cellLargeLabelFontSize?: string;
-};
+export interface CellThemeVars {
+  cellFontSize?: string
+  cellLineHeight?: number | string
+  cellVerticalPadding?: string
+  cellHorizontalPadding?: string
+  cellTextColor?: string
+  cellBackground?: string
+  cellBorderColor?: string
+  cellActiveColor?: string
+  cellRequiredColor?: string
+  cellLabelColor?: string
+  cellLabelFontSize?: string
+  cellLabelLineHeight?: number | string
+  cellLabelMarginTop?: string
+  cellValueColor?: string
+  cellIconSize?: string
+  cellRightIconColor?: string
+  cellLargeVerticalPadding?: string
+  cellLargeTitleFontSize?: string
+  cellLargeLabelFontSize?: string
+}
 
-export type CellSize = 'normal' | 'large';
+export type CellSize = 'normal' | 'large'
 
-export type CellArrowDirection = 'up' | 'down' | 'left' | 'right';
+export type CellArrowDirection = 'up' | 'down' | 'left' | 'right'
 
 export const cellSharedProps = {
   tag: makeStringProp<keyof HTMLElementTagNameMap>('div'),
@@ -65,8 +65,8 @@ export const cellSharedProps = {
     type: Boolean as PropType<boolean | null>,
     default: null,
   },
-};
+}
 
-export const cellProps = extend({}, cellSharedProps, routeProps);
+export const cellProps = extend({}, cellSharedProps, routeProps)
 
-export type CellProps = ExtractPropTypes<typeof cellProps>;
+export type CellProps = ExtractPropTypes<typeof cellProps>
