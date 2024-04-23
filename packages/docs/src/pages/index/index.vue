@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Uploader from 'uni-vant/uploader/Uploader.vue';
-import CountDown from '../components/countDown.vue';
-import Callapse from '../components/callapse.vue'
-import VanDivider from '../components/divider.vue';
+import Uploader from 'uni-vant/uploader/Uploader.vue'
 import VanCol from 'uni-vant/col/Col.vue'
 import VanRow from 'uni-vant/row/Row.vue'
 import VanSticky from 'uni-vant/sticky/Sticky.vue'
 import VanButton from 'uni-vant/button/Button.vue'
+import Callapse from '../components/callapse.vue'
+import CountDown from '../components/countDown.vue'
+import VanDivider from '../components/divider.vue'
 </script>
 
 <template>

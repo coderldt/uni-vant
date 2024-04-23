@@ -10,8 +10,8 @@ export type VerticalSpaces = { bottom?: number }[]
 export interface RowProvide {
   spaces?: ComputedRef<RowSpaces>
   verticalSpaces?: ComputedRef<VerticalSpaces>
-  horizontalGutter: string | number
-  verticalGutter: string | number
+  horizontalGutter?: string | number
+  verticalGutter?: string | number
 }
 const [name] = createNamespace('row')
 

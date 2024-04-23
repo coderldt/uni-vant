@@ -78,18 +78,17 @@ export function useChildren<
   // eslint-disable-next-line @typescript-eslint/ban-types
   Child extends ComponentPublicInstance = ComponentPublicInstance<{}, any>,
   ProvideValue = never,
->(key: InjectionKey<ProvideValue>, parent: any) {
+>(key: InjectionKey<ProvideValue>) {
   const publicChildren: Child[] = reactive([])
   const internalChildren: ComponentInternalInstance[] = reactive([])
-  // const parent = getCurrentInstance()!
-
+  const parent = getCurrentInstance()!
 
   const linkChildren = (value?: ProvideValue) => {
     const link = (child: ComponentInternalInstance) => {
       // if (child.proxy) {
-        internalChildren.push(child)
-        publicChildren.push(child.proxy as Child)
-        sortChildren(parent, publicChildren, internalChildren)
+      internalChildren.push(child)
+      publicChildren.push(child.proxy as Child)
+      sortChildren(parent, publicChildren, internalChildren)
       // }
     }
 
