@@ -2,6 +2,7 @@
 import Uploader from 'uni-vant/uploader/Uploader.vue';
 import CountDown from '../components/countDown.vue';
 import Callapse from '../components/callapse.vue'
+import VanDivider from '../components/divider.vue';
 import VanCol from 'uni-vant/col/Col.vue'
 import VanRow from 'uni-vant/row/Row.vue'
 import VanSticky from 'uni-vant/sticky/Sticky.vue'
@@ -10,6 +11,7 @@ import VanButton from 'uni-vant/button/Button.vue'
 
 <template>
   <view class="content">
+    <VanDivider />
     <Uploader />
     <CountDown />
     <Callapse />
