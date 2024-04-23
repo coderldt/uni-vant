@@ -25,7 +25,7 @@ const [_, bem] = createNamespace('collapse-item')
 const instance = getCurrentInstance()
 
 const wrapperRef = ref<HTMLElement>()
-const { parent, index } = useParent(COLLAPSE_KEY, instance)
+const { parent, index } = useParent(COLLAPSE_KEY)
 
 // if (!parent) {
 //   if (process.env.NODE_ENV !== 'production') {
