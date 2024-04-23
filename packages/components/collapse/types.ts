@@ -1,4 +1,4 @@
-import type { ComponentPublicInstance, ExtractPropTypes, InjectionKey, PropType } from 'vue'
+import type { ComponentPublicInstance, ExtractPropTypes, PropType } from 'vue'
 import type { Numeric } from '../utils'
 import { truthProp } from '../utils'
 

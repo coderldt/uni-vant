@@ -1,13 +1,13 @@
-import _CollapseItem from './CollapseItem.vue';
+import _CollapseItem from './CollapseItem.vue'
 
-export const CollapseItem = _CollapseItem;
-export default CollapseItem;
+export const CollapseItem = _CollapseItem
+export default CollapseItem
 
-export { collapseItemProps } from './types';
-export type { CollapseItemInstance, CollapseItemThemeVars, CollapseItemProps } from './types';
+export { collapseItemProps } from './types'
+export type { CollapseItemInstance, CollapseItemThemeVars, CollapseItemProps } from './types'
 
 declare module 'vue' {
   export interface GlobalComponents {
-    VanCollapseItem: typeof CollapseItem;
+    VanCollapseItem: typeof CollapseItem
   }
 }
