@@ -31,16 +31,15 @@ export function useRect(elementOrRef: Element | Window | Ref<Element | Window | 
 
 // TODO ts type
 export function useUniRect(selector: string, instance: any, all?: boolean) {
-  return new Promise(resolve => {
-    uni.createSelectorQuery().
-    in(instance)[all ? 'selectAll' : 'select'](selector)
-      .boundingClientRect(rect => {
-        if (all && Array.isArray(rect) && rect.length) {
+  return new Promise((resolve) => {
+    uni.createSelectorQuery()
+      .in(instance)[all ? 'selectAll' : 'select'](selector)
+      .boundingClientRect((rect) => {
+        if (all && Array.isArray(rect) && rect.length)
           resolve(rect)
-        }
-        if (!all && rect) {
+
+        if (!all && rect)
           resolve(rect)
-        }
       })
       .exec()
   })

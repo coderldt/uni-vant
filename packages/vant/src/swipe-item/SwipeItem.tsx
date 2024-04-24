@@ -56,7 +56,6 @@ export default defineComponent({
 
     const shouldRender = computed(() => {
       const { loop, lazyRender } = parent.props;
-
       if (!lazyRender || rendered) {
         return true;
       }
