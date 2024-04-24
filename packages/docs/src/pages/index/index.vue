@@ -8,11 +8,13 @@ import CountDown from '../components/countDown.vue'
 import Callapse from '../components/callapse.vue'
 import VanDivider from '../components/divider.vue'
 import Empty from '../components/empty.vue'
-import Highlight from '../components/Highlight.vue'
+import Highlight from '../components/highlight.vue'
+import List from '../components/list.vue'
 </script>
 
 <template>
   <view class="content">
+    <List />
     <Highlight />
     <Empty />
     <VanDivider />
