@@ -2,7 +2,6 @@
 import './index.less'
 import {
   computed,
-  getCurrentInstance,
   onMounted,
   ref,
 } from 'vue'
@@ -21,8 +20,6 @@ import { collapseItemProps } from './types'
 const props = defineProps(collapseItemProps)
 
 const [_, bem] = createNamespace('collapse-item')
-
-const instance = getCurrentInstance()
 
 const wrapperRef = ref<HTMLElement>()
 const { parent, index } = useParent(COLLAPSE_KEY)
@@ -44,9 +41,12 @@ const contentClassName = bem('content')
 const wrapperHeight = ref(0)
 
 onMounted(() => {
-  // TODO res type
-  useUniRect(`.${contentClassName}`, instance).then((res: any) => {
-    wrapperHeight.value = res.height
+  useUniRect(`.${contentClassName}`).then((res) => {
+    if (!res)
+      return console.error(`.${contentClassName} 元素找不到`)
+
+    if (!Array.isArray(res))
+      wrapperHeight.value = res.height as number
   })
 })
 
