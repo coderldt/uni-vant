@@ -10,11 +10,13 @@ import Callapse from '../components/callapse.vue'
 import CountDown from '../components/countDown.vue'
 import VanDivider from '../components/divider.vue'
 import Empty from '../components/empty.vue'
-import Highlight from '../components/Highlight.vue'
+import Highlight from '../components/highlight.vue'
+import List from '../components/list.vue'
 </script>
 
 <template>
   <view class="content">
+    <List />
     <VanSwipe :autoplay="3000">
       <VanSwipeItem>
         <view style="color: #fff;font-size: 20px;line-height: 150px;text-align: center;background-color: #39a9ed;">
