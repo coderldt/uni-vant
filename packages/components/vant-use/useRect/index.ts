@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { unref } from 'vue'
+import { getCurrentInstance, unref } from 'vue'
 
 const isWindow = (val: unknown): val is Window => val === window
 
@@ -29,11 +29,11 @@ export function useRect(elementOrRef: Element | Window | Ref<Element | Window | 
   return makeDOMRect(0, 0)
 }
 
-// TODO ts type
-export function useUniRect(selector: string, instance: any, all?: boolean) {
+export function useUniRect(selector: string, all?: boolean): Promise<UniApp.NodeInfo | UniApp.NodeInfo[] | null> {
+  const instancea = getCurrentInstance()
   return new Promise((resolve) => {
     uni.createSelectorQuery()
-      .in(instance)[all ? 'selectAll' : 'select'](selector)
+      .in(instancea)[all ? 'selectAll' : 'select'](selector)
       .boundingClientRect((rect) => {
         if (all && Array.isArray(rect) && rect.length)
           resolve(rect)

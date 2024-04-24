@@ -18,7 +18,7 @@ const [name, bem] = createNamespace('collapse')
 
 const instance = getCurrentInstance()
 
-const { linkChildren, children } = useChildren(COLLAPSE_KEY, instance)
+const { linkChildren, children } = useChildren(COLLAPSE_KEY)
 
 const getClass = computed(() => [bem(), { [BORDER_TOP_BOTTOM]: props.border }])
 

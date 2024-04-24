@@ -9,6 +9,8 @@ import VanSwipeItem from 'uni-vant/swipe-item/SwipeItem.vue'
 import Callapse from '../components/callapse.vue'
 import CountDown from '../components/countDown.vue'
 import VanDivider from '../components/divider.vue'
+import Empty from '../components/empty.vue'
+import Highlight from '../components/Highlight.vue'
 </script>
 
 <template>
@@ -30,6 +32,8 @@ import VanDivider from '../components/divider.vue'
         </view>
       </VanSwipeItem>
     </VanSwipe>
+    <Highlight />
+    <Empty />
     <VanDivider />
     <Uploader />
     <CountDown />
