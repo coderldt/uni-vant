@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import './index.less'
 import {
   type CSSProperties,
-  type ComponentPublicInstance,
   computed,
   nextTick,
   onActivated,
@@ -9,22 +9,20 @@ import {
   onDeactivated,
   onMounted,
   reactive,
-  ref,
   watch,
 } from 'vue'
 
 // Utils
-import { provide, useSlots } from 'vue'
+import { getCurrentInstance, useSlots } from 'vue'
 import {
-  doubleRaf,
   useChildren,
   // useEventListener,
-  usePageVisibility,
+  // usePageVisibility,
 } from '../vant-use'
 import {
   clamp,
   createNamespace,
-  isHidden,
+  isVisible,
   makeNumericProp,
   numericProp,
   preventDefault,
@@ -38,6 +36,7 @@ import { useTouch } from '../composables/use-touch'
 import { onPopupReopen } from '../composables/on-popup-reopen'
 
 // Types
+import { useExpose } from '../composables/use-expose'
 import type { SwipeExpose, SwipeState, SwipeToOptions } from './types'
 import { SWIPE_KEY } from '.'
 
@@ -57,9 +56,6 @@ const props = defineProps({
 })
 const emit = defineEmits(['change', 'dragStart', 'dragEnd'])
 const [name, bem] = createNamespace('swipe')
-const root = ref<ComponentPublicInstance>()
-const track = ref<ComponentPublicInstance>()
-const trackEl = computed(() => track.value?.$el)
 const state = reactive<SwipeState>({
   rect: null,
   width: 0,
@@ -202,12 +198,10 @@ function prev() {
   correctPosition()
   touch.reset()
 
-  doubleRaf(() => {
-    state.swiping = false
-    move({
-      pace: -1,
-      emitChange: true,
-    })
+  state.swiping = false
+  move({
+    pace: -1,
+    emitChange: true,
   })
 }
 
@@ -216,12 +210,10 @@ function next() {
   correctPosition()
   touch.reset()
 
-  doubleRaf(() => {
-    state.swiping = false
-    move({
-      pace: 1,
-      emitChange: true,
-    })
+  state.swiping = false
+  move({
+    pace: 1,
+    emitChange: true,
   })
 }
 
@@ -238,45 +230,48 @@ function autoplay() {
     }, +props.autoplay)
   }
 }
-const rootEl = computed(() => root.value?.$el)
 
 // initialize swipe position
 function initialize(active = +props.initialSwipe) {
-  if (!root.value)
-    return
-  const cb = () => {
-    if (!isHidden(rootEl.value)) {
-      const rect = {
-        width: rootEl.value!.offsetWidth,
-        height: rootEl.value!.offsetHeight,
+  // if (!root.value)
+  //   return
+  const instance = getCurrentInstance()
+  const query = uni.createSelectorQuery().in(instance)
+  query.select(`.${bem()}`).boundingClientRect((data) => {
+    const cb = () => {
+      if (isVisible(data)) {
+        const rect = {
+          width: (data as UniApp.NodeInfo).width!,
+          height: (data as UniApp.NodeInfo).height!,
+        }
+        state.rect = rect
+        state.width = +(props.width ?? rect.width)
+        state.height = +(props.height ?? rect.height)
       }
-      state.rect = rect
-      state.width = +(props.width ?? rect.width)
-      state.height = +(props.height ?? rect.height)
+
+      if (count.value) {
+        active = Math.min(count.value - 1, active)
+
+        if (active === -1)
+          active = count.value - 1
+      }
+
+      state.active = active
+      state.swiping = true
+      state.offset = getTargetOffset(active)
+      children.forEach((swipe) => {
+        swipe.setOffset(0)
+      })
+
+      autoplay()
     }
 
-    if (count.value) {
-      active = Math.min(count.value - 1, active)
-
-      if (active === -1)
-        active = count.value - 1
-    }
-
-    state.active = active
-    state.swiping = true
-    state.offset = getTargetOffset(active)
-    children.forEach((swipe) => {
-      swipe.setOffset(0)
-    })
-
-    autoplay()
-  }
-
-  // issue: https://github.com/vant-ui/vant/issues/10052
-  if (isHidden(rootEl.value))
-    nextTick().then(cb)
-  else
-    cb()
+    // issue: https://github.com/vant-ui/vant/issues/10052
+    if (!isVisible(data))
+      nextTick().then(cb)
+    else
+      cb()
+  }).exec()
 }
 
 const resize = () => initialize(state.active)
@@ -368,40 +363,49 @@ function swipeTo(index: number, options: SwipeToOptions = {}) {
   correctPosition()
   touch.reset()
 
-  doubleRaf(() => {
-    let targetIndex
-    if (props.loop && index === count.value)
-      targetIndex = state.active === 0 ? 0 : index
-    else
-      targetIndex = index % count.value
+  let targetIndex
+  if (props.loop && index === count.value)
+    targetIndex = state.active === 0 ? 0 : index
+  else
+    targetIndex = index % count.value
 
-    if (options.immediate) {
-      doubleRaf(() => {
-        state.swiping = false
-      })
-    }
-    else {
-      state.swiping = false
-    }
+  if (options.immediate)
+    state.swiping = false
 
-    move({
-      pace: targetIndex - state.active,
-      emitChange: true,
-    })
+  else
+    state.swiping = false
+
+  move({
+    pace: targetIndex - state.active,
+    emitChange: true,
   })
 }
 
-defineExpose<SwipeExpose>({
+// defineExpose<SwipeExpose>({
+//   prev,
+//   next,
+//   state,
+//   resize,
+//   swipeTo,
+//   active: activeIndicator.value,
+//   total: count.value,
+// })
+
+// provide(SWIPE_KEY, {
+//   size,
+//   props,
+//   count,
+//   activeIndicator,
+// })
+useExpose<SwipeExpose>({
   prev,
   next,
   state,
   resize,
   swipeTo,
-  active: activeIndicator.value,
-  total: count.value,
 })
 
-provide(SWIPE_KEY, {
+linkChildren({
   size,
   props,
   count,
@@ -419,12 +423,13 @@ watch(
   [windowWidth, windowHeight, () => props.width, () => props.height],
   resize,
 )
-watch(usePageVisibility(), (visible) => {
-  if (visible === 'visible')
-    autoplay()
-  else
-    stopAutoplay()
-})
+// TODO 根据页面可见停止播放
+// watch(usePageVisibility(), (visible) => {
+//   if (visible === 'visible')
+//     autoplay()
+//   else
+//     stopAutoplay()
+// })
 
 onMounted(initialize)
 onActivated(() => initialize(state.active))
@@ -440,8 +445,15 @@ const slots = useSlots()
 </script>
 
 <template>
-  <view ref="root" :class="bem()">
-    <view ref="track" :style="trackStyle" :class="bem('track', { vertical: props.vertical })" @touchstart="onTouchStart" @touchend="onTouchEnd" @touchcancel="onTouchEnd" @touchmove="onTouchMove">
+  <view :class="bem()">
+    <view
+      :style="trackStyle"
+      :class="bem('track', { vertical: props.vertical })"
+      @touchstart="onTouchStart"
+      @touchend="onTouchEnd"
+      @touchcancel="onTouchEnd"
+      @touchmove="onTouchMove"
+    >
       <slot />
     </view>
 

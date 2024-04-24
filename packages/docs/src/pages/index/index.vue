@@ -4,8 +4,10 @@ import VanCol from 'uni-vant/col/Col.vue'
 import VanRow from 'uni-vant/row/Row.vue'
 import VanSticky from 'uni-vant/sticky/Sticky.vue'
 import VanButton from 'uni-vant/button/Button.vue'
-import CountDown from '../components/countDown.vue'
+import VanSwipe from 'uni-vant/swipe/Swipe.vue'
+import VanSwipeItem from 'uni-vant/swipe-item/SwipeItem.vue'
 import Callapse from '../components/callapse.vue'
+import CountDown from '../components/countDown.vue'
 import VanDivider from '../components/divider.vue'
 import Empty from '../components/empty.vue'
 import Highlight from '../components/highlight.vue'
@@ -15,6 +17,23 @@ import List from '../components/list.vue'
 <template>
   <view class="content">
     <List />
+    <VanSwipe :autoplay="3000">
+      <VanSwipeItem>
+        <view style="color: #fff;font-size: 20px;line-height: 150px;text-align: center;background-color: #39a9ed;">
+          test
+        </view>
+      </VanSwipeItem>
+      <VanSwipeItem>
+        <view style="color: #fff;font-size: 20px;line-height: 150px;text-align: center;background-color: red;">
+          test
+        </view>
+      </VanSwipeItem>
+      <VanSwipeItem>
+        <view style="color: #fff;font-size: 20px;line-height: 150px;text-align: center;background-color: red;">
+          test
+        </view>
+      </VanSwipeItem>
+    </VanSwipe>
     <Highlight />
     <Empty />
     <VanDivider />

@@ -35,8 +35,8 @@ export interface SwipeExpose {
   swipeTo: (index: number, options?: SwipeToOptions) => void
   /** @private */
   state: SwipeState
-  active: number
-  total: number
+  active?: number
+  total?: number
 }
 
 export interface SwipeProvide {

@@ -1,6 +1,6 @@
-import { useRect, useWindowSize } from '@vant/use'
 import type { Ref } from 'vue'
 import { unref } from 'vue'
+import { useRect, useWindowSize } from '../vant-use'
 import { isIOS as checkIsIOS } from './basic'
 
 export type ScrollElement = Element | Window
@@ -78,6 +78,23 @@ export function isHidden(
   const parentHidden = el.offsetParent === null && style.position !== 'fixed'
 
   return hidden || parentHidden
+}
+
+export function isVisible(data: any) {
+  if (!data)
+    return false
+  const { windowHeight } = uni.getSystemInfoSync()
+  const top = data.top
+  const height = windowHeight - top
+  // windowHeight = top（目标元素刚进入可视区域）
+  // windowHeight - top = height（目标元素完全进入可视区域）
+  // top = 0 (目标元素刚离开可视区域)
+  // top + height = 0 （目标元素完全离开可视区域 ）
+
+  if ((top < windowHeight) && (top + height > 0))
+    return true
+  else
+    return false
 }
 
 export const { width: windowWidth, height: windowHeight } = useWindowSize()
