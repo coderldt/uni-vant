@@ -1,14 +1,20 @@
-import { withInstall } from '../utils';
-import _Tabs, { TabsProps } from './Tabs';
+import type { InjectionKey } from 'vue'
+import { createNamespace } from '../utils'
+import type { TabsProps } from './Tabs.vue'
+import _Tabs from './Tabs.vue'
+import type { TabsProvide } from './types'
 
-export const Tabs = withInstall(_Tabs);
-export default Tabs;
-export { tabsProps } from './Tabs';
-export type { TabsProps };
-export type { TabsType, TabsInstance, TabsThemeVars } from './types';
+export const Tabs = _Tabs
+export default Tabs
+export { tabsProps } from './Tabs.vue'
+export type { TabsProps }
+export type { TabsType, TabsInstance, TabsThemeVars } from './types'
+
+const [name] = createNamespace('tabs')
+export const TABS_KEY: InjectionKey<TabsProvide> = Symbol(name)
 
 declare module 'vue' {
   export interface GlobalComponents {
-    VanTabs: typeof Tabs;
+    VanTabs: typeof Tabs
   }
 }

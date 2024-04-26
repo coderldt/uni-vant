@@ -12,7 +12,7 @@ import {
 } from 'vue'
 
 // Utils
-import { useEventListener, useRect, useScrollParent } from '../vant-use'
+import { useEventListener, useRect, useScrollParent, useUniRect } from '../vant-use'
 import {
   createNamespace,
   extend,
@@ -35,12 +35,18 @@ export type StickyPosition = 'top' | 'bottom'
 export const stickyProps = {
   zIndex: numericProp,
   position: makeStringProp<StickyPosition>('top'),
-  container: Object as PropType<Element>,
+  container: Boolean,
   offsetTop: makeNumericProp(0),
   offsetBottom: makeNumericProp(0),
 }
 
 export type StickyProps = ExtractPropTypes<typeof stickyProps>
+
+export default {
+  options: {
+    virtualHost: true,
+  },
+}
 </script>
 
 <script lang="ts" setup>
@@ -62,7 +68,6 @@ const offset = computed(() =>
   unitToPx(props.position === 'top' ? props.offsetTop : props.offsetBottom),
 )
 
-// eslint-disable-next-line vue/return-in-computed-property
 const rootStyle = computed<CSSProperties | undefined>(() => {
   if (isReset.value)
     return
@@ -74,20 +79,21 @@ const rootStyle = computed<CSSProperties | undefined>(() => {
       height: `${height}px`,
     }
   }
+  return undefined
 })
 
 const stickyStyle = computed<CSSProperties | undefined>(() => {
-  if (!state.fixed || isReset.value)
-    return
+  // if (!state.fixed || isReset.value)
+  //   return
 
   const style: CSSProperties = extend(getZIndexStyle(props.zIndex), {
-    width: `${state.width}px`,
-    height: `${state.height}px`,
+    // width: `${state.width}px`,
+    // height: `${state.height}px`,
     [props.position]: `${offset.value}px`,
   })
 
-  if (state.transform)
-    style.transform = `translate3d(0, ${state.transform}px, 0)`
+  // if (state.transform)
+  //   style.transform = `translate3d(0, ${state.transform}px, 0)`
 
   return style
 })
@@ -99,46 +105,9 @@ function emitScroll(scrollTop: number) {
   })
 }
 
-function onScroll() {
-  if (!root.value || isHidden(root))
-    return
-
-  const { container, position } = props
-  const rootRect = useRect(root)
-  const scrollTop = getScrollTop(window)
-
-  state.width = rootRect.width
-  state.height = rootRect.height
-
-  if (position === 'top') {
-    // The sticky component should be kept inside the container element
-    if (container) {
-      const containerRect = useRect(container)
-      const difference = containerRect.bottom - offset.value - state.height
-      state.fixed = offset.value > rootRect.top && containerRect.bottom > 0
-      state.transform = difference < 0 ? difference : 0
-    }
-    else {
-      state.fixed = offset.value > rootRect.top
-    }
-  }
-  else {
-    const { clientHeight } = document.documentElement
-    if (container) {
-      const containerRect = useRect(container)
-      const difference
-            = clientHeight - containerRect.top - offset.value - state.height
-      state.fixed
-            = clientHeight - offset.value < rootRect.bottom
-            && clientHeight > containerRect.top
-      state.transform = difference < 0 ? -difference : 0
-    }
-    else {
-      state.fixed = clientHeight - offset.value < rootRect.bottom
-    }
-  }
-
-  emitScroll(scrollTop)
+function onScroll(event) {
+  console.log('event', event)
+  // emitScroll(scrollTop)
 }
 
 watch(
@@ -158,18 +127,19 @@ watch([windowWidth, windowHeight], () => {
 
   isReset.value = true
   nextTick(() => {
-    const rootRect = useRect(root)
-    state.width = rootRect.width
-    state.height = rootRect.height
-    isReset.value = false
+    useUniRect(`.${bem('root')}`).then((rootRect) => {
+      state.width = rootRect.width!
+      state.height = rootRect.height!
+      isReset.value = false
+    })
   })
 })
 </script>
 
 <template>
-  <view ref="root" :style="rootStyle">
-    <view :class="bem({ fixed: state.fixed && !isReset })" :style="stickyStyle">
+  <!-- <scroll-view :style="rootStyle" @scroll="onScroll"> -->
+    <view :class="bem()" :style="stickyStyle">
       <slot />
     </view>
-  </view>
+  <!-- </scroll-view> -->
 </template>

@@ -97,7 +97,6 @@ export function useChildren<
       publicChildren.splice(index, 1)
       internalChildren.splice(index, 1)
     }
-
     provide(
       key,
       Object.assign(
