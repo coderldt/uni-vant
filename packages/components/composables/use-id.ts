@@ -4,7 +4,7 @@ let current = 0
 
 export function useId() {
   const vm = getCurrentInstance()
-  const { name = 'unknown' } = vm?.type || {}
+  const { __name: name = 'unknown' } = vm?.type || {}
 
   // keep test snapshot stable
   // eslint-disable-next-line n/prefer-global/process

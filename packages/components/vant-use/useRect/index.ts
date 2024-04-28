@@ -29,11 +29,11 @@ export function useRect(elementOrRef: Element | Window | Ref<Element | Window | 
   return makeDOMRect(0, 0)
 }
 
-export function useUniRect(selector: string, all?: boolean): Promise<UniApp.NodeInfo | UniApp.NodeInfo[] | null> {
-  const instancea = getCurrentInstance()
+export function useUniRect(selector: string, all?: boolean): Promise<UniApp.NodeInfo> {
+  const instance = getCurrentInstance()
   return new Promise((resolve) => {
     uni.createSelectorQuery()
-      .in(instancea)[all ? 'selectAll' : 'select'](selector)
+      .in(instance)[all ? 'selectAll' : 'select'](selector)
       .boundingClientRect((rect) => {
         if (all && Array.isArray(rect) && rect.length)
           resolve(rect)

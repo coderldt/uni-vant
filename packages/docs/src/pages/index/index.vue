@@ -62,7 +62,8 @@ import List from '../components/list.vue'
 </template>
 
 <style>
-.sticky-content {
-  height: 1000px;
+.content {
+  height: 300px;
+  position: relative;
 }
 </style>

@@ -23,6 +23,10 @@ importers:
         version: 3.12.2
 
   packages/components:
+    dependencies:
+      '@vue/shared':
+        specifier: ^3.0.0
+        version: 3.4.21
     devDependencies:
       '@dcloudio/types':
         specifier: ^3.3.2
