@@ -13,6 +13,7 @@ export function useRefs<T = Element>() {
     if (!cache[index]) {
       cache[index] = (el: unknown) => {
         refs.value[index] = el as T
+        console.log('refs.valu', refs.value)
       }
     }
     return cache[index]

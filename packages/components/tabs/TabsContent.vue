@@ -4,7 +4,6 @@ import { onMounted, ref, watch } from 'vue'
 import { createNamespace, makeRequiredProp, numericProp } from '../utils'
 import type { SwipeInstance } from '../swipe'
 import Swipe from '../swipe/Swipe.vue'
-import { useExpose } from '../composables/use-expose'
 
 export default {
   options: {
@@ -41,7 +40,7 @@ onMounted(() => {
   swipeToCurrentTab(props.currentIndex)
 })
 
-useExpose({ swipeRef })
+defineExpose({ swipeRef })
 </script>
 
 <template>
