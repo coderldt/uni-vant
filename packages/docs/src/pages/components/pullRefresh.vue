@@ -5,7 +5,7 @@ import VanPullRefresh from 'uni-vant/pull-refresh/PullRefresh.vue'
 const list = ref<number[]>([1, 2, 3])
 const refresher = ref(true)
 const disabled = ref(false)
-const modelValue = ref(true)
+const modelValue = ref(false)
 
 const color = ['uni-bg-red', 'uni-bg-green', 'uni-bg-blue']
 
