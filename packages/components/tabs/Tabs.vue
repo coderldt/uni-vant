@@ -107,7 +107,13 @@ const contentRef = ref<ComponentInstance>()
 
 const id = useId()
 const scroller = useScrollParent(root)
-const [titleRefs, setTitleRefs] = useRefs<ComponentInstance>()
+// const [titleRefs, setTitleRefs] = useRefs<ComponentInstance>()
+const titleRefs = ref<any[]>([])
+function setTitleRefs(index: number) {
+  return (el: unknown) => {
+    titleRefs.value[index] = el
+  }
+}
 const { children, linkChildren } = useChildren(TABS_KEY)
 
 const state = reactive({
@@ -188,19 +194,17 @@ function setLine() {
 
   nextTick(() => {
     const titles = titleRefs.value
-    console.log('titles', titles)
-    console.log('state.currentIndex', state.currentIndex)
-    console.log('flag', titles[0])
+    const rect = titles[state.currentIndex]?.getTabTitleRect()
     if (
       !titles
           || !titles[state.currentIndex]
           || props.type !== 'line'
+          || !rect
     )
       return
 
-    const title = titles[state.currentIndex].$el
     const { lineWidth, lineHeight } = props
-    const left = title.offsetLeft + title.offsetWidth / 2
+    const left = rect.left + rect.width / 2
 
     const lineStyle: CSSProperties = {
       width: addUnit(lineWidth),
@@ -216,7 +220,6 @@ function setLine() {
       lineStyle.height = height
       lineStyle.borderRadius = height
     }
-    console.log('lineStyle', lineStyle)
     state.lineStyle = lineStyle
   })
 }
@@ -245,6 +248,7 @@ function setCurrentIndex(currentIndex: number,
 
   if (state.currentIndex !== newIndex) {
     state.currentIndex = newIndex
+    console.log('index', state.currentIndex)
 
     if (!skipScrollIntoView)
       scrollIntoView()

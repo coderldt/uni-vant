@@ -1,5 +1,6 @@
 <script lang="ts">
-import { type CSSProperties, computed } from 'vue'
+import { type CSSProperties, computed, getCurrentInstance, ref } from 'vue'
+import { onMounted } from 'vue'
 import { createNamespace, isDef, numericProp, truthProp } from '../utils'
 import Badge from '../badge/Badge.vue'
 import '../tabs/index.less'
@@ -59,6 +60,22 @@ const style = computed(() => {
 function onClick(event: MouseEvent) {
   emit('click', event)
 }
+
+const rect = ref()
+onMounted(() => {
+  const ins = getCurrentInstance()
+  const query = uni.createSelectorQuery().in(ins)
+  query.select(`#${props.id}`).boundingClientRect((res) => {
+    console.log('res', res)
+    rect.value = res
+  }).exec()
+})
+
+function getTabTitleRect() {
+  return rect.value
+}
+
+defineExpose({ getTabTitleRect })
 </script>
 
 <template>
