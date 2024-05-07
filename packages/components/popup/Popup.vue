@@ -76,9 +76,9 @@ const style = computed(() => {
 
   if (isDef(props.duration)) {
     const key
-          = props.position === 'center'
-            ? 'animationDuration'
-            : 'transitionDuration'
+      = props.position === 'center'
+        ? 'animationDuration'
+        : 'transitionDuration'
     style[key] = `${props.duration}s`
   }
 
@@ -90,7 +90,7 @@ function open() {
     opened = true
 
     zIndex.value
-          = props.zIndex !== undefined ? +props.zIndex : useGlobalZIndex()
+      = props.zIndex !== undefined ? +props.zIndex : useGlobalZIndex()
 
     emit('open')
   }
@@ -151,7 +151,7 @@ watch(
   },
 )
 
-useExpose({ popupRef })
+useExpose({ popupRef, abc: 123 })
 
 useLockScroll(popupRef, () => props.show && props.lockScroll)
 
@@ -186,14 +186,26 @@ provide(POPUP_TOGGLE_KEY, () => props.show)
 </script>
 
 <template>
-  <Overlay v-if="props.overlay" :show="props.show" :class="props.overlayClass" :z-index="zIndex" :duration="props.duration" :custom-style="props.overlayStyle" :role="props.closeOnClickOverlay ? 'button' : undefined" :tabindex="props.closeOnClickOverlay ? 0 : undefined" @click="onClickOverlay">
+  <Overlay
+    v-if="props.overlay"
+    :show="props.show"
+    :class="props.overlayClass"
+    :z-index="zIndex"
+    :duration="props.duration"
+    :custom-style="props.overlayStyle"
+    :role="props.closeOnClickOverlay ? 'button' : undefined"
+    :tabindex="props.closeOnClickOverlay ? 0 : undefined"
+    @click="onClickOverlay"
+  >
     <slot name="overlay-content" />
   </Overlay>
 
   <view
     v-show="props.show"
-    ref="popupRef" :style="style"
-    role="dialog" :tabindex="0"
+    ref="popupRef"
+    :style="style"
+    role="dialog"
+    :tabindex="0"
     :class="[
       bem({
         round,
